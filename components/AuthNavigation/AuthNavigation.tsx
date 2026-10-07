@@ -82,13 +82,13 @@ export default function AuthNavigation({
   // }
   return (
     <ul className={css.authNavigationDesc}>
-      <li>
+      <li className={css.navLogin}>
         <Link href="/login" onClick={onCloseMobileMenu}>
           LOG IN
         </Link>
       </li>
 
-      <li>
+      <li className={css.navReg}>
         <Link href="/register" onClick={onCloseMobileMenu}>
           REGISTRATION
         </Link>

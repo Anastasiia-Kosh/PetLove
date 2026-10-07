@@ -1,6 +1,4 @@
 .page {
-  position: absolute;
-  top: 0;
   padding: 10px 0;
 }
 .wrap_hero {
@@ -45,9 +43,13 @@
   object-fit: cover;
 }
 @media screen and (min-width: 768px) {
+  .page {
+    padding: 16px 0;
+  }
   .wrap_title {
     align-items: flex-end;
     padding: 178px 32px 44px 32px;
+    border-radius: 60px;
   }
   .title {
     font-size: 80px;
@@ -55,6 +57,9 @@
   .subtitle {
     font-size: 18px;
     max-width: 255px;
+  }
+  .heroImage {
+    border-radius: 60px;
   }
 }
 
@@ -64,7 +69,6 @@
   }
   .wrap_title {
     flex-direction: row;
-    /* align-items: flex-end; */
     padding: 178px 64px 32px 64px;
   }
 }

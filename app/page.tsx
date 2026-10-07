@@ -31,8 +31,8 @@ export default function Home() {
               <Image
                 src="/images/home/hero-mobile.webp"
                 alt="woman with a dog"
-                  width={335}
-  height={402}
+                width={335}
+                height={402}
                 sizes="100vw"
                 className={css.heroImage}
                 loading="eager"

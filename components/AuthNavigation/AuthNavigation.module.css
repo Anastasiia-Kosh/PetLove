@@ -14,6 +14,14 @@
   color: var(--color-white);
   background-color: var(--color-yellow);
   width: 120px;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
+}
+.navLogin:hover,
+.navLogin:focus {
+  color: var(--color-yellow);
+  background-color: var(--color-milk);
 }
 .navReg {
   padding: 12px 0;
@@ -22,6 +30,11 @@
   color: var(--color-yellow);
   background-color: var(--color-milk);
   width: 120px;
+  transition: background-color 0.3s ease;
+}
+.navReg:hover,
+.navReg:focus {
+  background-color: var(--color-dark-milk);
 }
 @media screen and (min-width: 768px) {
   .authNavigation {
@@ -34,6 +47,30 @@
 }
 @media screen and (min-width: 1280px) {
   .authNavigationDesc {
-    display: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+  }
+  .navLogin {
+    padding: 15px 0;
+    border-radius: 30px;
+    text-align: center;
+    color: var(--color-white);
+    background-color: var(--color-yellow);
+    border: 1px solid var(--color-milk);
+    width: 120px;
+  }
+
+  .navReg {
+    padding: 15px 0;
+    border-radius: 30px;
+    text-align: center;
+    color: var(--color-yellow);
+    background-color: var(--color-milk);
+    width: 150px;
   }
 }

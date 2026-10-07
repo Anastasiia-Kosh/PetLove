@@ -1,0 +1,160 @@
+.header {
+  position: fixed;
+  top: 28px;
+  left: 0;
+  width: 100%;
+  z-index: 800;
+  height: 40px;
+  color: var(--color-white);
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.headerScroll {
+  background-color: var(--color-bg);
+  color: var(--color-black);
+}
+
+.headerInner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 0 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: flex-end;
+
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+
+  color: inherit;
+}
+.icon_logo {
+  width: 17px;
+  height: 17px;
+}
+.icon_menu {
+  width: 32px;
+  height: 32px;
+}
+.logo svg {
+  color: var(--color-white);
+}
+
+.headerScroll .logo svg {
+  color: var(--color-yellow);
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.menuButton svg {
+  stroke: var(--color-white);
+}
+
+.headerScroll .menuButton svg {
+  stroke: var(--color-black);
+}
+.menuButtonOpen {
+  position: fixed;
+  top: 28px;
+  right: 20px;
+  z-index: 20;
+}
+.menuButtonOpen svg {
+  stroke: var(--color-black);
+}
+.desktopNav {
+  display: none;
+}
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 42%;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  height: 100%;
+  overflow-y: auto;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  padding: 0 20px 40px 20px;
+}
+.mobileNavigation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 235px 0 280px 0;
+}
+.mobileNavigation li {
+  border: 1px solid var(--color-yellow);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  border-radius: 30px;
+  padding: 15px 0;
+  text-align: center;
+  width: 120px;
+}
+@media screen and (min-width: 768px) {
+  .mobileNav {
+    left: 51%;
+  }
+  .logo {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .mobileNavigation li {
+    font-size: 16px;
+    line-height: 1.25;
+  }
+  .icon_logo {
+    width: 23px;
+    height: 23px;
+  }
+  .icon_menu {
+    width: 36px;
+    height: 36px;
+  }
+  .menuButtonOpen {
+    top: 36px;
+    right: 30px;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .mobileNav,
+  .menuButton {
+    display: none;
+  }
+  .desktopNav {
+    display: flex;
+  }
+  .navigation {
+    display: flex;
+  }
+}

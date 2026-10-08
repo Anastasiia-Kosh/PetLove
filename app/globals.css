@@ -6,7 +6,10 @@
   --color-milk: #fff4df;
   --color-dark-milk: #fbe7c1;
   --color-yellow: #f6b83d;
+  --color-dark-yellow: #f9b020;
   --color-black: #262626;
+  --color-red: #ef2447;
+  --color-green: #08aa83;
 }
 
 *,
@@ -80,7 +83,7 @@ button {
 body {
   font-family: var(--font-family);
   background-color: var(--color-bg);
-  color: var(--color-white);
+  color: var(--color-black);
   padding: 0;
   margin: 0;
   min-width: 320px;

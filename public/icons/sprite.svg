@@ -6,8 +6,24 @@
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.88" d="M10.667 2.667v5.333"></path>
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.88" d="M4 13.333h24"></path>
 </symbol>
-<symbol id="icon-check" viewBox="0 0 32 32">
-<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.1818" d="M26.667 9.333l-14.667 14.667-6.667-6.667"></path>
+<symbol id="icon-check" viewBox="0 0 22 22">
+  <path
+    d="M18.3337 6.41667L8.25042 16.5L3.66699 11.9167"
+    stroke="#08AA83"
+    stroke-width="1.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+   fill="none"
+  />
+</symbol>
+<symbol id="icon-nocheck" viewBox="0 0 22 22">
+  <path
+    d="M17.4163 4.58333L4.58301 17.4167M4.58305 4.58333L17.4163 17.4167"
+    stroke="#EF2447"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
 </symbol>
 <symbol id="icon-chevron-down" viewBox="0 0 32 32">
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="3.5556" d="M8 12l8 8 8-8"></path>

@@ -74,7 +74,7 @@
   right: 20px;
   z-index: 20;
 }
-.menuButtonOpen svg {
+.menuButton.menuButtonOpen svg {
   stroke: var(--color-black);
 }
 .desktopNav {

@@ -3,6 +3,7 @@ import css from "./Icon.module.css";
 export type IconName =
   | "calendar"
   | "check"
+  | "nocheck"
   | "chevron-down"
   | "cloud"
   | "eye"

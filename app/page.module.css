@@ -1,5 +1,6 @@
 .page {
   padding: 10px 0;
+  color: var(--color-white);
 }
 .wrap_hero {
   display: flex;

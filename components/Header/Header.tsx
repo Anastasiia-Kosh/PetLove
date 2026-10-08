@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import css from "./Header.module.css";
 import AuthNavigation from "../AuthNavigation/AuthNavigation";
@@ -9,9 +9,8 @@ import Icon from "../Icon/Icon";
 
 export default function Header() {
   const pathname = usePathname();
-
+  const isHomePage = pathname === "/";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isHeaderScroll, setIsHeaderScroll] = useState(false);
 
   const handleMobileMenu = () => {
     setIsMobileMenuOpen((prev) => !prev);
@@ -21,22 +20,8 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsHeaderScroll(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <header
-      className={`${css.header} ${isHeaderScroll ? css.headerScroll : ""}`}
-    >
+    <header className={`${css.header} ${isHomePage ? css.headerHome : ""}`}>
       <div className="container">
         <div className={css.headerInner}>
           <Link href="/" aria-label="PetLove" className={css.logo}>
@@ -62,20 +47,20 @@ export default function Header() {
 
           <nav aria-label="Main Navigation" className={css.desktopNav}>
             <ul className={css.navigation}>
-                 <li>
-                <Link href="/news" onClick={handleCloseMobileMenu}>
+              <li>
+                <Link href="/news" onClick={handleCloseMobileMenu} className={css.navLink}>
                   News
                 </Link>
               </li>
 
               <li>
-                <Link href="/notices" onClick={handleCloseMobileMenu}>
+                <Link href="/notices" onClick={handleCloseMobileMenu} className={css.navLink}>
                   Find pet
                 </Link>
               </li>
 
               <li>
-                <Link href="/friends" onClick={handleCloseMobileMenu}>
+                <Link href="/friends" onClick={handleCloseMobileMenu} className={css.navLink}>
                   Our friends
                 </Link>
               </li>
@@ -87,19 +72,19 @@ export default function Header() {
           <nav className={css.mobileNav} aria-label="Mobile Navigation">
             <ul className={css.mobileNavigation}>
               <li>
-                <Link href="/news" onClick={handleCloseMobileMenu}>
+                <Link href="/news" onClick={handleCloseMobileMenu} className={css.navLinkMob}>
                   News
                 </Link>
               </li>
 
               <li>
-                <Link href="/notices" onClick={handleCloseMobileMenu}>
+                <Link href="/notices" onClick={handleCloseMobileMenu} className={css.navLinkMob}>
                   Find pet
                 </Link>
               </li>
 
               <li>
-                <Link href="/friends" onClick={handleCloseMobileMenu}>
+                <Link href="/friends" onClick={handleCloseMobileMenu} className={css.navLinkMob}>
                   Our friends
                 </Link>
               </li>

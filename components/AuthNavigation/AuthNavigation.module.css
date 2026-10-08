@@ -8,6 +8,7 @@
   letter-spacing: -0.03em;
 }
 .navLogin {
+  display: block;
   padding: 12px 0;
   border-radius: 30px;
   text-align: center;
@@ -24,6 +25,7 @@
   background-color: var(--color-milk);
 }
 .navReg {
+  display: block;
   padding: 12px 0;
   border-radius: 30px;
   text-align: center;

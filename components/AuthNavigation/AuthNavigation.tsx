@@ -44,14 +44,14 @@ export default function AuthNavigation({
   if (isMobile) {
     return  (
       <ul className={css.authNavigation}>
-        <li className={css.navLogin}>
-          <Link href="/login" onClick={onCloseMobileMenu}>
+        <li >
+          <Link href="/login" onClick={onCloseMobileMenu} className={css.navLogin}>
             LOG IN
           </Link>
         </li>
 
-        <li className={css.navReg}>
-          <Link href="/register" onClick={onCloseMobileMenu}>
+        <li >
+          <Link href="/register" onClick={onCloseMobileMenu} className={css.navReg}>
             REGISTRATION
           </Link>
         </li>
@@ -82,14 +82,14 @@ export default function AuthNavigation({
   // }
   return (
     <ul className={css.authNavigationDesc}>
-      <li className={css.navLogin}>
-        <Link href="/login" onClick={onCloseMobileMenu}>
+      <li >
+        <Link href="/login" onClick={onCloseMobileMenu} className={css.navLogin}>
           LOG IN
         </Link>
       </li>
 
-      <li className={css.navReg}>
-        <Link href="/register" onClick={onCloseMobileMenu}>
+      <li >
+        <Link href="/register" onClick={onCloseMobileMenu} className={css.navReg}>
           REGISTRATION
         </Link>
       </li>

@@ -5,15 +5,11 @@
   width: 100%;
   z-index: 800;
   height: 40px;
-  color: var(--color-white);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  color: var(--color-black);
 }
 
-.headerScroll {
-  background-color: var(--color-bg);
-  color: var(--color-black);
+.headerHome {
+  color: var(--color-white);
 }
 
 .headerInner {
@@ -45,13 +41,12 @@
   height: 32px;
 }
 .logo svg {
-  color: var(--color-white);
-}
-
-.headerScroll .logo svg {
   color: var(--color-yellow);
 }
 
+.headerHome .logo svg {
+  color: var(--color-white);
+}
 .menuButton {
   display: flex;
   align-items: center;
@@ -66,12 +61,13 @@
 }
 
 .menuButton svg {
+  stroke: var(--color-black);
+}
+
+.headerHome .menuButton svg {
   stroke: var(--color-white);
 }
 
-.headerScroll .menuButton svg {
-  stroke: var(--color-black);
-}
 .menuButtonOpen {
   position: fixed;
   top: 28px;
@@ -106,7 +102,8 @@
   gap: 10px;
   padding: 235px 0 280px 0;
 }
-.mobileNavigation li {
+.navLinkMob {
+  display: block;
   border: 1px solid rgba(38, 38, 38, 0.4);
   font-weight: 500;
   font-size: 14px;
@@ -118,8 +115,8 @@
   width: 120px;
   transition: border-color 0.3s ease;
 }
-.mobileNavigation li:hover,
-.mobileNavigation li:focus {
+.navLinkMob:hover,
+.navLinkMob:focus {
   border-color: var(--color-yellow);
 }
 @media screen and (min-width: 768px) {
@@ -136,7 +133,7 @@
     line-height: 1;
     letter-spacing: -0.04em;
   }
-  .mobileNavigation li {
+  .navLinkMob {
     font-size: 16px;
     line-height: 1.25;
   }
@@ -178,8 +175,8 @@
     align-items: center;
     gap: 10px;
   }
-  .navigation li {
-    border: 1px solid var(--color-milk);
+  .navLink {
+    display: block;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.25;
@@ -188,12 +185,19 @@
     padding: 15px 0;
     text-align: center;
     width: 120px;
-    transition:
-      color 0.3s ease,
-      background-color 0.3s ease;
+    border: 1px solid rgba(38, 38, 38, 0.15);
+    transition: border-color 0.3s ease;
   }
-  .navigation li:hover,
-  .navigation li:focus {
+  .navLink:hover,
+  .navLink:focus {
+    border-color: var(--color-yellow);
+  }
+  .headerHome .navLink {
+    border-color: var(--color-milk);
+  }
+
+  .headerHome .navLink:hover,
+  .headerHome .navLink:focus {
     color: var(--color-yellow);
     background-color: var(--color-milk);
   }

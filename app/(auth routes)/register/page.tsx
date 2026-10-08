@@ -76,6 +76,33 @@ export default function Register() {
                 fetchPriority="high"
               />
             </picture>
+            <div className={css.card}>
+              <div className={css.cardImage}>
+                <Image
+                  src="/images/avatar/cat.png"
+                  alt="cat"
+                  width={32}
+                  height={32}
+                  sizes="100vw"
+                  loading="eager"
+                  fetchPriority="high"
+                  className={css.image}
+                />
+              </div>
+              <div className={css.cardInfo}>
+                <ul className={css.cardName}>
+                  <li className={css.catName}>Jack</li>
+                  <li className={css.catBrthd}>
+                    <span className={css.catBrthd_accent}>Birthday: </span>
+                    18.10.2021
+                  </li>
+                </ul>
+                <p className={css.catDescr}>
+                  Jack is a gray Persian cat with green eyes. He loves to be
+                  pampered and groomed, and enjoys playing with toys.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className={css.formWrapper}>

@@ -13,16 +13,25 @@
   border-radius: 30px;
   text-align: center;
   color: var(--color-white);
-  background-color: var(--color-yellow);
+  background-color: transparent;
+  border: 1px solid var(--color-white);
   width: 120px;
   transition:
     color 0.3s ease,
     background-color 0.3s ease;
 }
-.navLogin:hover,
-.navLogin:focus {
+.navLogin:hover {
   color: var(--color-yellow);
   background-color: var(--color-milk);
+}
+.navLoginHome {
+  color: var(--color-white);
+  background-color: var(--color-yellow);
+}
+
+.navLoginHome:hover {
+  color: var(--color-white);
+  background-color: var(--color-dark-yellow);
 }
 .navReg {
   display: block;
@@ -34,8 +43,7 @@
   width: 120px;
   transition: background-color 0.3s ease;
 }
-.navReg:hover,
-.navReg:focus {
+.navReg:hover {
   background-color: var(--color-dark-milk);
 }
 @media screen and (min-width: 768px) {
@@ -63,10 +71,17 @@
     text-align: center;
     color: var(--color-white);
     background-color: var(--color-yellow);
-    border: 1px solid var(--color-milk);
     width: 120px;
   }
+  .navLogin:hover {
+    color: var(--color-white);
+    background-color: var(--color-dark-yellow);
+  }
 
+  .navLoginHome:hover {
+    color: var(--color-yellow);
+    background-color: var(--color-milk);
+  }
   .navReg {
     padding: 15px 0;
     border-radius: 30px;

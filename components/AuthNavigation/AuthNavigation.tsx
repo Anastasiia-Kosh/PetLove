@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-
 interface AuthNavigationProps {
   isMobile?: boolean;
   onCloseMobileMenu?: () => void;
@@ -22,7 +21,7 @@ export default function AuthNavigation({
   // const { isAuthenticated, user, clearIsAuthenticated } = useAuth();
 
   const [menuPathname, setMenuPathname] = useState<string | null>(null);
-
+  const isHomePage = pathname === "/";
   const isUserMenuOpen = menuPathname === pathname;
 
   const handleMenu = () => {
@@ -42,20 +41,31 @@ export default function AuthNavigation({
   };
 
   if (isMobile) {
-    return  (
+    return (
       <ul className={css.authNavigation}>
-        <li >
-          <Link href="/login" onClick={onCloseMobileMenu} className={css.navLogin}>
+        <li>
+          <Link
+            href="/login"
+            onClick={onCloseMobileMenu}
+            className={`${css.navLogin} ${
+               isHomePage ? css.navLoginHome : ""
+            }`}
+          >
             LOG IN
           </Link>
         </li>
 
-        <li >
-          <Link href="/register" onClick={onCloseMobileMenu} className={css.navReg}>
+        <li>
+          <Link
+            href="/register"
+            onClick={onCloseMobileMenu}
+            className={css.navReg}
+          >
             REGISTRATION
           </Link>
         </li>
-      </ul>)
+      </ul>
+    );
   }
   // if (isMobile) {
   //   return isAuthenticated && user ? (
@@ -82,14 +92,24 @@ export default function AuthNavigation({
   // }
   return (
     <ul className={css.authNavigationDesc}>
-      <li >
-        <Link href="/login" onClick={onCloseMobileMenu} className={css.navLogin}>
+      <li>
+        <Link
+          href="/login"
+          onClick={onCloseMobileMenu}
+          className={`${css.navLogin} ${
+               isHomePage ? css.navLoginHome : ""
+            }`}
+        >
           LOG IN
         </Link>
       </li>
 
-      <li >
-        <Link href="/register" onClick={onCloseMobileMenu} className={css.navReg}>
+      <li>
+        <Link
+          href="/register"
+          onClick={onCloseMobileMenu}
+          className={css.navReg}
+        >
           REGISTRATION
         </Link>
       </li>

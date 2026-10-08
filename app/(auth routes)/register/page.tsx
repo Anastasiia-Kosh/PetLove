@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import css from "./Auth.module.css";
+import css from "./Register.module.css";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -262,9 +262,9 @@ export default function Register() {
               </button>
 
               <p className={css.switchText}>
-                Already have an account?{" "}
+                Already have an account?
                 <span className={css.switchLink}>
-                  <Link href="/login">Login</Link>
+                  <Link href="/login"> Login</Link>
                 </span>
               </p>
             </form>

@@ -51,30 +51,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   width: 32px;
   height: 32px;
-
   padding: 0;
   border: 0;
   background: transparent;
 }
-
 .menuButton svg {
   stroke: var(--color-black);
 }
-
 .headerHome .menuButton svg {
   stroke: var(--color-white);
 }
-
 .menuButtonOpen {
   position: fixed;
   top: 28px;
   right: 20px;
   z-index: 20;
 }
-.menuButton.menuButtonOpen svg {
+
+.menuButtonOpen svg {
+  stroke: var(--color-white);
+}
+.menuButtonHomeOpen {
+  position: fixed;
+  top: 28px;
+  right: 20px;
+  z-index: 20;
+}
+.headerHome .menuButtonHomeOpen svg {
   stroke: var(--color-black);
 }
 .desktopNav {
@@ -92,9 +97,16 @@
   z-index: 10;
   height: 100%;
   overflow-y: auto;
+  padding: 0 20px 40px 20px;
+}
+.mobileNavHome {
   background-color: var(--color-white);
   color: var(--color-black);
-  padding: 0 20px 40px 20px;
+}
+
+.mobileNavInner {
+  background-color: var(--color-yellow);
+  color: var(--color-white);
 }
 .mobileNavigation {
   display: flex;
@@ -104,7 +116,6 @@
 }
 .navLinkMob {
   display: block;
-  border: 1px solid rgba(38, 38, 38, 0.4);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.28571;
@@ -113,11 +124,30 @@
   padding: 15px 0;
   text-align: center;
   width: 120px;
-  transition: border-color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease,
+    background-color 0.3s ease;
 }
-.navLinkMob:hover,
-.navLinkMob:focus {
+.mobileNavHome .navLinkMob {
+  border: 1px solid rgba(38, 38, 38, 0.4);
+  color: var(--color-black);
+}
+
+.mobileNavHome .navLinkMob:hover,
+.mobileNavHome .navLinkMob:focus {
   border-color: var(--color-yellow);
+}
+
+.mobileNavInner .navLinkMob {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: var(--color-white);
+}
+
+.mobileNavInner .navLinkMob:hover,
+.mobileNavInner .navLinkMob:focus {
+  color: var(--color-yellow);
+  background-color: var(--color-milk);
 }
 @media screen and (min-width: 768px) {
   .header {

@@ -7,6 +7,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Icon from "@/components/Icon/Icon";
 import { useState } from "react";
+import { registerUser } from "@/lib/api/clientApi";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface RegisterForm {
   name: string;
@@ -34,20 +37,38 @@ const schema = yup
   })
   .required();
 
-export default function Register() {
+export default function RegisterPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors, touchedFields, isSubmitting },
   } = useForm<RegisterForm>({
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
-
+  // const [errorMessage, setErrorMessage] = useState("");
+  // const [successMessage, setSuccessMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (data: RegisterForm) => {
-    console.log(data);
+  const onSubmit = async (data: RegisterForm) => {
+    try {
+      const result = await registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      });   
+        toast.success(`Registration successful! Welcome, ${result.name}.`)
+      ;
+    } catch (error) {
+      if (axios.isAxiosError<{ message?: string }>(error)) {
+        toast.error(
+          error.response?.data?.message ??
+            "Registration failed. Please try again.",
+        );
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    }
   };
   return (
     <section className={css.page}>
@@ -255,10 +276,12 @@ export default function Register() {
                   <p className={css.error}>{errors.confirm.message}</p>
                 )}
               </div>
-              {/* {error && <p className={css.error}>{error}</p>} */}
-
-              <button type="submit" className={css.button}>
-                REGISTRATION
+              <button
+                type="submit"
+                className={css.button}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "REGISTERING..." : "REGISTRATION"}
               </button>
 
               <p className={css.switchText}>

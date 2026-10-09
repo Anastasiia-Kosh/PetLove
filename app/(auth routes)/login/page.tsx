@@ -27,7 +27,7 @@ const schema = yup
   })
   .required();
 
-export default function Login() {
+export default function LoginPage() {
   const {
     register,
     handleSubmit,

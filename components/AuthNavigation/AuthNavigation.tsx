@@ -8,12 +8,14 @@ import { useState } from "react";
 
 interface AuthNavigationProps {
   isMobile?: boolean;
+  isTabletHeader?: boolean;
   onCloseMobileMenu?: () => void;
   pathname: string;
 }
 
 export default function AuthNavigation({
   isMobile = false,
+  isTabletHeader = false,
   onCloseMobileMenu,
   pathname,
 }: AuthNavigationProps) {
@@ -40,9 +42,13 @@ export default function AuthNavigation({
     router.replace("/");
   };
 
-  if (isMobile) {
+  if (isMobile || isTabletHeader) {
     return (
-      <ul className={css.authNavigation}>
+      <ul
+  className={`${css.authNavigation} ${
+    isTabletHeader ? css.tabletHeaderAuth : ""
+  }`}
+>
         <li>
           <Link
             href="/login"

@@ -30,7 +30,9 @@ export default function Header() {
             <Icon name="logo" className={css.icon_logo} />
             ve
           </Link>
-<ul className={css.onlyTab}></ul>
+<div className={css.tabletAuthNavigation}>
+  <AuthNavigation isTabletHeader pathname={pathname} />
+</div>
           <button
             type="button"
             onClick={handleMobileMenu}

@@ -20,7 +20,9 @@
   height: 40px;
   padding: 0 20px;
 }
-
+.tabletAuthNavigation {
+  display: none;
+}
 .logo {
   display: flex;
   align-items: flex-end;
@@ -184,7 +186,13 @@
     padding: 0 32px;
   }
 }
-
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .tabletAuthNavigation {
+    display: block;
+    margin-left: auto;
+    margin-right: 16px;
+  }
+}
 @media screen and (min-width: 1280px) {
   .mobileNav,
   .menuButton {

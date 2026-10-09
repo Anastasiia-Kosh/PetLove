@@ -55,6 +55,29 @@
     width: 150px;
   }
 }
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .tabletHeaderAuth .navLogin {
+    color: var(--color-white);
+    background-color: var(--color-yellow);
+    border: none;
+  }
+
+  .tabletHeaderAuth .navLogin:hover {
+    color: var(--color-white);
+    background-color: var(--color-dark-yellow);
+  }
+
+  .tabletHeaderAuth .navLoginHome {
+    color: var(--color-white);
+    background-color: transparent;
+    border: 1px solid var(--color-white);
+  }
+
+  .tabletHeaderAuth .navLoginHome:hover {
+    color: var(--color-yellow);
+    background-color: var(--color-milk);
+  }
+}
 @media screen and (min-width: 1280px) {
   .authNavigationDesc {
     display: flex;

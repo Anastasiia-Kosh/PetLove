@@ -10,6 +10,9 @@ import { useState } from "react";
 import { registerUser } from "@/lib/api/clientApi";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector  } from "@/lib/store/hooks";
+import { setUser } from "@/lib/store/authStore";
+import { useRouter } from "next/navigation";
 
 interface RegisterForm {
   name: string;
@@ -38,6 +41,7 @@ const schema = yup
   .required();
 
 export default function RegisterPage() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -46,19 +50,22 @@ export default function RegisterPage() {
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
-  // const [errorMessage, setErrorMessage] = useState("");
-  // const [successMessage, setSuccessMessage] = useState("");
+
+  const dispatch = useAppDispatch();
+const currentUser = useAppSelector((state) => state.auth.user);
+const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: RegisterForm) => {
     try {
-      const result = await registerUser({
+      const user = await registerUser({
         name: data.name,
         email: data.email,
         password: data.password,
-      });   
-        toast.success(`Registration successful! Welcome, ${result.name}.`)
-      ;
+      });
+      dispatch(setUser(user));
+      toast.success(`Registration successful! Welcome, ${user.name}.`);
+      router.push("/profile");
     } catch (error) {
       if (axios.isAxiosError<{ message?: string }>(error)) {
         toast.error(

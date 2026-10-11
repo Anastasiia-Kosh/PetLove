@@ -5,6 +5,8 @@ import Link from "next/link";
 // import { logout } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useAppSelector } from "@/lib/store/hooks";
+import UserBar from "@/components/UserBar/UserBar";
 
 interface AuthNavigationProps {
   isMobile?: boolean;
@@ -21,7 +23,7 @@ export default function AuthNavigation({
 }: AuthNavigationProps) {
   const router = useRouter();
   // const { isAuthenticated, user, clearIsAuthenticated } = useAuth();
-
+  const user = useAppSelector((state) => state.auth.user);
   const [menuPathname, setMenuPathname] = useState<string | null>(null);
   const isHomePage = pathname === "/";
   const isUserMenuOpen = menuPathname === pathname;
@@ -43,19 +45,39 @@ export default function AuthNavigation({
   };
 
   if (isMobile || isTabletHeader) {
+    if (user) {
+      return (
+        <ul
+          className={`${css.authNavigation} ${
+            isTabletHeader ? css.tabletHeaderAuth : ""
+          }`}
+        >
+          {isTabletHeader ? (
+            <li>
+              <UserBar />
+            </li>
+          ) : (
+            <li>
+              <button type="button" onClick={handleLogout}>
+                LOG OUT
+              </button>
+            </li>
+          )}
+        </ul>
+      );
+    }
+
     return (
       <ul
-  className={`${css.authNavigation} ${
-    isTabletHeader ? css.tabletHeaderAuth : ""
-  }`}
->
+        className={`${css.authNavigation} ${
+          isTabletHeader ? css.tabletHeaderAuth : ""
+        }`}
+      >
         <li>
           <Link
             href="/login"
             onClick={onCloseMobileMenu}
-            className={`${css.navLogin} ${
-               isHomePage ? css.navLoginHome : ""
-            }`}
+            className={`${css.navLogin} ${isHomePage ? css.navLoginHome : ""}`}
           >
             LOG IN
           </Link>
@@ -73,38 +95,28 @@ export default function AuthNavigation({
       </ul>
     );
   }
-  // if (isMobile) {
-  //   return isAuthenticated && user ? (
-  //     <li>
-  //       <button type="button" onClick={handleLogout}>
-  //         LOG OUT
-  //       </button>
-  //     </li>
-  //   ) : (
-  //     <>
-  //       <li>
-  //         <Link href="/sign-in" onClick={onCloseMobileMenu}>
-  //           LOG IN
-  //         </Link>
-  //       </li>
 
-  //       <li>
-  //         <Link href="/sign-up" onClick={onCloseMobileMenu}>
-  //           REGISTRATION
-  //         </Link>
-  //       </li>
-  //     </>
-  //   );
-  // }
+  if (user) {
+  return (
+    <ul className={css.authNavigationDesc}>
+      <li>
+        <button type="button" onClick={handleLogout}>
+          LOG OUT
+        </button>
+      </li>
+      <li>
+        <UserBar />
+      </li>
+    </ul>
+  );
+}
   return (
     <ul className={css.authNavigationDesc}>
       <li>
         <Link
           href="/login"
           onClick={onCloseMobileMenu}
-          className={`${css.navLogin} ${
-               isHomePage ? css.navLoginHome : ""
-            }`}
+          className={`${css.navLogin} ${isHomePage ? css.navLoginHome : ""}`}
         >
           LOG IN
         </Link>
@@ -122,25 +134,4 @@ export default function AuthNavigation({
     </ul>
   );
 
-  // return isAuthenticated && user ? (
-  //   <li>
-  //     <button type="button" onClick={handleLogout}>
-  //       LOG OUT
-  //     </button>
-  //   </li>
-  // ) : (
-  //   <>
-  //     <li>
-  //       <Link href="/sign-in" onClick={onCloseMobileMenu}>
-  //         LOG IN
-  //       </Link>
-  //     </li>
-
-  //     <li>
-  //       <Link href="/sign-up" onClick={onCloseMobileMenu}>
-  //         REGISTRATION
-  //       </Link>
-  //     </li>
-  //   </>
-  // );
 }

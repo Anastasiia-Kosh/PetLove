@@ -64,6 +64,7 @@ const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
         password: data.password,
       });
       dispatch(setUser(user));
+      console.log("Після реєстрації:", user);
       toast.success(`Registration successful! Welcome, ${user.name}.`);
       router.push("/profile");
     } catch (error) {

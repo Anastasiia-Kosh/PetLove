@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { CurrentFullResponse, CurrentResponse, User } from "@/types/user";
 import { apiInstance } from "./api";
 
 export interface RegisterRequest {
@@ -16,5 +16,23 @@ export interface LoginRequest {
 }
 export const loginUser = async (loginData: LoginRequest) => {
   const { data } = await apiInstance.post<User>(`/users/signin`, loginData);
+  return data;
+};
+
+
+export const currentUserInfo = async () => {
+  const { data } = await apiInstance.get<CurrentResponse>(`/users/current`)
+  return data;
+};
+
+export const currentUserFullInfo = async (token: string) => {
+  const { data } = await apiInstance.get<CurrentFullResponse>("/users/current/full",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
   return data;
 };

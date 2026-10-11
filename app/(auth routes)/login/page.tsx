@@ -7,6 +7,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Icon from "@/components/Icon/Icon";
 import { useState } from "react";
+import { currentUserFullInfo, loginUser } from "@/lib/api/clientApi";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "@/lib/store/hooks";
+import { setUser } from "@/lib/store/authStore";
 
 interface LoginForm {
   email: string;
@@ -36,12 +42,31 @@ export default function LoginPage() {
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
-
+  const router = useRouter();
+    const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
-  const onSubmit = (data: LoginForm) => {
-    console.log(data);
-  };
+  
+const onSubmit = async (data: LoginForm) => {
+  try {
+   const user = await loginUser(data);
+const fullUser = await currentUserFullInfo(user.token);
+
+dispatch(setUser(fullUser));
+
+toast.success(`Welcome back, ${fullUser.name}!`);
+router.push("/profile");
+  } catch (error) {
+    if (axios.isAxiosError<{ message?: string }>(error)) {
+      toast.error(
+        error.response?.data?.message ??
+          "Login failed. Please check your email and password."
+      );
+    } else {
+      toast.error("Something went wrong. Please try again.");
+    }
+  }
+};
   return (
     <section className={css.page}>
       <div className="container">

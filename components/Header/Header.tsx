@@ -30,17 +30,17 @@ export default function Header() {
             <Icon name="logo" className={css.icon_logo} />
             ve
           </Link>
-<div className={css.tabletAuthNavigation}>
-  <AuthNavigation isTabletHeader pathname={pathname} />
-</div>
+          <div className={css.tabletAuthNavigation}>
+            <AuthNavigation isTabletHeader pathname={pathname} />
+          </div>
           <button
             type="button"
             onClick={handleMobileMenu}
             aria-label={isMobileMenuOpen ? "Закрити меню" : "Відкрити меню"}
             aria-expanded={isMobileMenuOpen}
             className={`${css.menuButton} ${
-  isMobileMenuOpen ? css.menuButtonOpen : ""
-} ${isMobileMenuOpen && isHomePage ? css.menuButtonHomeOpen : ""}`}
+              isMobileMenuOpen ? css.menuButtonOpen : ""
+            } ${isMobileMenuOpen && isHomePage ? css.menuButtonHomeOpen : ""}`}
           >
             <Icon
               name={isMobileMenuOpen ? "close" : "menu"}

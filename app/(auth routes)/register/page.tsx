@@ -7,10 +7,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Icon from "@/components/Icon/Icon";
 import { useState } from "react";
-import { registerUser } from "@/lib/api/clientApi";
+import { currentUserFullInfo, registerUser } from "@/lib/api/clientApi";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useAppDispatch, useAppSelector  } from "@/lib/store/hooks";
+import { useAppDispatch } from "@/lib/store/hooks";
 import { setUser } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 
@@ -52,8 +52,7 @@ export default function RegisterPage() {
   });
 
   const dispatch = useAppDispatch();
-const currentUser = useAppSelector((state) => state.auth.user);
-const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: RegisterForm) => {
@@ -63,8 +62,12 @@ const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
         email: data.email,
         password: data.password,
       });
-      dispatch(setUser(user));
-      console.log("Після реєстрації:", user);
+      localStorage.setItem("token", user.token);
+
+      const fullUser = await currentUserFullInfo(user.token);
+
+      dispatch(setUser(fullUser));
+
       toast.success(`Registration successful! Welcome, ${user.name}.`);
       router.push("/profile");
     } catch (error) {

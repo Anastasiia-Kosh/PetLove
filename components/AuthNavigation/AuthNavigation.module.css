@@ -113,4 +113,16 @@
     background-color: var(--color-milk);
     width: 150px;
   }
+  /* .logoutClass {
+    padding: 15px 0;
+    border-radius: 30px;
+    text-align: center;
+    color: var(--color-white);
+    background-color: var(--color-yellow);
+    width: 120px;
+  }
+  .logoutClass:hover {
+    color: var(--color-white);
+    background-color: var(--color-dark-yellow);
+  } */
 }

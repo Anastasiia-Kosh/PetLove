@@ -1,12 +1,13 @@
 "use client";
-// import { useAuth } from "@/lib/store/authStore";
+
 import css from "./AuthNavigation.module.css";
 import Link from "next/link";
-// import { logout } from "@/lib/api/clientApi";
+import { logoutUser } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useAppSelector } from "@/lib/store/hooks";
-import UserBar from "@/components/UserBar/UserBar";
+import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
+import { clearUser } from "@/lib/store/authStore";
+import toast from "react-hot-toast";
 
 interface AuthNavigationProps {
   isMobile?: boolean;
@@ -22,7 +23,7 @@ export default function AuthNavigation({
   pathname,
 }: AuthNavigationProps) {
   const router = useRouter();
-  // const { isAuthenticated, user, clearIsAuthenticated } = useAuth();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
   const [menuPathname, setMenuPathname] = useState<string | null>(null);
   const isHomePage = pathname === "/";
@@ -39,99 +40,64 @@ export default function AuthNavigation({
   const handleLogout = async () => {
     onCloseMobileMenu?.();
 
-    // await logout();
-    // clearIsAuthenticated();
-    router.replace("/");
+    try {
+      await logoutUser();
+      toast.success("You have logged out successfully.");
+    } catch {
+      toast.error("Failed to complete the session on the server.");
+    } finally {
+      localStorage.removeItem("token");
+      dispatch(clearUser());
+      router.replace("/");
+    }
   };
 
-  if (isMobile || isTabletHeader) {
-    if (user) {
-      return (
-        <ul
-          className={`${css.authNavigation} ${
-            isTabletHeader ? css.tabletHeaderAuth : ""
-          }`}
-        >
-          {isTabletHeader ? (
-            <li>
-              <UserBar />
-            </li>
-          ) : (
-            <li>
-              <button type="button" onClick={handleLogout}>
-                LOG OUT
-              </button>
-            </li>
-          )}
-        </ul>
-      );
-    }
+ 
+  const authNavigationClass = isMobile || isTabletHeader
+    ? `${css.authNavigation} ${isTabletHeader ? css.tabletHeaderAuth : ""}`
+    : css.authNavigationDesc;
 
-    return (
-      <ul
-        className={`${css.authNavigation} ${
-          isTabletHeader ? css.tabletHeaderAuth : ""
-        }`}
-      >
-        <li>
-          <Link
-            href="/login"
-            onClick={onCloseMobileMenu}
-            className={`${css.navLogin} ${isHomePage ? css.navLoginHome : ""}`}
-          >
-            LOG IN
-          </Link>
-        </li>
+  const logoutClass = isTabletHeader
+    ? `${css.navLogin} ${isHomePage ? css.navLoginHome : ""}`
+    : isHomePage
+      ? `${css.navLogin} ${css.navLoginHome}`
+      : css.navLogin;
 
-        <li>
-          <Link
-            href="/register"
-            onClick={onCloseMobileMenu}
-            className={css.navReg}
-          >
-            REGISTRATION
-          </Link>
-        </li>
-      </ul>
-    );
-  }
-
-  if (user) {
   return (
-    <ul className={css.authNavigationDesc}>
-      <li>
-        <button type="button" onClick={handleLogout}>
-          LOG OUT
-        </button>
-      </li>
-      <li>
-        <UserBar />
-      </li>
+    <ul className={authNavigationClass}>
+      {user ? (
+        <li>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className={logoutClass}
+          >
+            LOG OUT
+          </button>
+        </li>
+      ) : (
+        <>
+          <li>
+            <Link
+              href="/login"
+              onClick={onCloseMobileMenu}
+              className={`${css.navLogin} ${isHomePage ? css.navLoginHome : ""}`}
+            >
+              LOG IN
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              href="/register"
+              onClick={onCloseMobileMenu}
+              className={css.navReg}
+            >
+              REGISTRATION
+            </Link>
+          </li>
+        </>
+      )}
     </ul>
   );
-}
-  return (
-    <ul className={css.authNavigationDesc}>
-      <li>
-        <Link
-          href="/login"
-          onClick={onCloseMobileMenu}
-          className={`${css.navLogin} ${isHomePage ? css.navLoginHome : ""}`}
-        >
-          LOG IN
-        </Link>
-      </li>
-
-      <li>
-        <Link
-          href="/register"
-          onClick={onCloseMobileMenu}
-          className={css.navReg}
-        >
-          REGISTRATION
-        </Link>
-      </li>
-    </ul>
-  );
-
 }

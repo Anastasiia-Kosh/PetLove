@@ -113,8 +113,9 @@
 .mobileNavigation {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
-  padding: 235px 0 280px 0;
+  margin-block: auto;
 }
 .navLinkMob {
   display: block;
@@ -151,6 +152,11 @@
   color: var(--color-yellow);
   background-color: var(--color-milk);
 }
+.mobileUserBar {
+  display: block;
+  margin-left: auto;
+  margin-right: 12px;
+}
 @media screen and (min-width: 768px) {
   .header {
     height: 50px;
@@ -185,17 +191,22 @@
     height: 50px;
     padding: 0 32px;
   }
+  .mobileUserBar {
+    display: none;
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .tabletAuthNavigation {
-    display: block;
+    display: flex;
+    gap: 8px;
     margin-left: auto;
     margin-right: 16px;
   }
 }
 @media screen and (min-width: 1280px) {
   .mobileNav,
-  .menuButton {
+  .menuButton,
+  .mobileUserBar {
     display: none;
   }
   .headerInner {
@@ -238,5 +249,9 @@
   .headerHome .navLink:focus {
     color: var(--color-yellow);
     background-color: var(--color-milk);
+  }
+  .descAuthNavigation {
+    display: flex;
+    gap: 8px;
   }
 }

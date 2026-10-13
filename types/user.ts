@@ -1,56 +1,19 @@
+import type { NoticeFavorites, NoticeViewed } from "./notice";
+import type { Pet } from "./pet";
+
 export interface User {
   email: string;
   name: string;
   token: string;
-  avatar?: string;
-  phone?: string;
+}
+export interface AuthUser {
+  _id: string;
+  email: string;
+  name: string;
+  token: string;
+  avatar: string;
 }
 
-export interface NoticeFavorites {
-  _id: string;
-  species: string;
-  category: string;
-  title: string;
-  name: string;
-  birthday: string;
-  comment: string;
-  sex: string;
-  location: string;
-  imgURL: string;
-  createdAt: string;
-  user: string;
-  popularity: number;
-  updatedAt: string;
-}
-export interface NoticeViewed {
-  _id: string;
-  species: string;
-  category: string;
-  price: number;
-  title: string;
-  name: string;
-  birthday: string;
-  comment: string;
-  sex: string;
-  location: string;
-  imgURL: string;
-  createdAt: string;
-  user: string;
-  popularity: number;
-  updatedAt: string;
-}
-export interface Pet {
-  _id: string;
-  name: string;
-  title: string;
-  imgURL: string;
-  species: string;
-  birthday: string;
-  sex: string;
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-}
 export interface CurrentResponse {
   _id: string;
   name: string;

@@ -43,30 +43,32 @@ export default function LoginPage() {
     mode: "onTouched",
   });
   const router = useRouter();
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
-  
-const onSubmit = async (data: LoginForm) => {
-  try {
-   const user = await loginUser(data);
-const fullUser = await currentUserFullInfo(user.token);
+  const onSubmit = async (data: LoginForm) => {
+    try {
+      const user = await loginUser(data);
 
-dispatch(setUser(fullUser));
+      localStorage.setItem("token", user.token);
 
-toast.success(`Welcome back, ${fullUser.name}!`);
-router.push("/profile");
-  } catch (error) {
-    if (axios.isAxiosError<{ message?: string }>(error)) {
-      toast.error(
-        error.response?.data?.message ??
-          "Login failed. Please check your email and password."
-      );
-    } else {
-      toast.error("Something went wrong. Please try again.");
+      const fullUser = await currentUserFullInfo(user.token);
+
+      dispatch(setUser(fullUser));
+
+      toast.success(`Welcome back, ${fullUser.name}!`);
+      router.push("/profile");
+    } catch (error) {
+      if (axios.isAxiosError<{ message?: string }>(error)) {
+        toast.error(
+          error.response?.data?.message ??
+            "Login failed. Please check your email and password.",
+        );
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
     }
-  }
-};
+  };
   return (
     <section className={css.page}>
       <div className="container">

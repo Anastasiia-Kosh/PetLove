@@ -2,6 +2,7 @@
 
 import { Provider } from "react-redux";
 import { makeStore } from "./store";
+import AuthInitializer from "./AuthInitializer";
 
 const store = makeStore();
 
@@ -10,5 +11,5 @@ export default function Providers({
 }: {
   children: React.ReactNode;
 }) {
-  return <Provider store={store}>{children}</Provider>;
+  return <Provider store={store}><AuthInitializer />{children}</Provider>;
 }

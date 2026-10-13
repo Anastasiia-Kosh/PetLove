@@ -6,11 +6,13 @@ import css from "./Header.module.css";
 import AuthNavigation from "../AuthNavigation/AuthNavigation";
 import { usePathname } from "next/navigation";
 import Icon from "../Icon/Icon";
+import UserBar from "@/components/UserBar/UserBar";
+import { useAppSelector } from "@/lib/store/hooks";
 
 export default function Header() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-
+  const user = useAppSelector((state) => state.auth.user);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMobileMenu = () => {
@@ -30,8 +32,14 @@ export default function Header() {
             <Icon name="logo" className={css.icon_logo} />
             ve
           </Link>
+          {user && (
+            <div className={css.mobileUserBar}>
+              <UserBar />
+            </div>
+          )}
           <div className={css.tabletAuthNavigation}>
             <AuthNavigation isTabletHeader pathname={pathname} />
+            <UserBar />
           </div>
           <button
             type="button"
@@ -80,7 +88,10 @@ export default function Header() {
                 </Link>
               </li>
             </ul>
+            <div className={css.descAuthNavigation}>
             <AuthNavigation pathname={pathname} />
+              <UserBar />
+              </div>
           </nav>
         </div>
         {isMobileMenuOpen && (

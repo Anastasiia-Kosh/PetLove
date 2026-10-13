@@ -36,3 +36,11 @@ export const currentUserFullInfo = async (token: string) => {
 
   return data;
 };
+
+export interface ServerSession {
+   message: string;
+}
+export const logoutUser = async () => {
+  const { data } = await apiInstance.post<ServerSession>(`/users/signout`);
+  return data;
+};

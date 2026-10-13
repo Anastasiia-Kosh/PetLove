@@ -15,7 +15,7 @@ export default async function NewsPage(props: NewsPageProps) {
   const { keyword, page } = await props.searchParams;
   const currentPage = Number(page ?? 1);
   const { results, totalPages } = await getNews({ keyword, page: currentPage });
-  console.log({ currentPage, totalPages, results: results.length });
+  
   return (
     <section className={css.page}>
       <div className="container">
@@ -24,7 +24,7 @@ export default async function NewsPage(props: NewsPageProps) {
           <SearchBox />
         </div>
 
-        <NewsList results={results} />
+        <NewsList results={results} keyword={keyword} />
 
         <Pagination totalPages={totalPages} currentPage={currentPage} />
       </div>

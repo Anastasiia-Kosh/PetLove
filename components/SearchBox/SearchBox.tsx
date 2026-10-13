@@ -14,22 +14,22 @@ export default function SearchBox() {
 
   const handleSearch = (formData: FormData) => {
     const search = formData.get("keyword")?.toString().trim() ?? "";
-
     const params = new URLSearchParams(searchParams.toString());
-
     if (search) {
       params.set("keyword", search);
     } else {
       params.delete("keyword");
     }
-
     params.set("page", "1");
-
     router.push(`${pathname}?${params.toString()}`);
   };
 
   const handleClear = () => {
     setKeyword("");
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("keyword");
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (

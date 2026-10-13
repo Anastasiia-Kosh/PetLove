@@ -56,15 +56,21 @@
 .pagination li.active:hover {
   background-color: var(--color-dark-yellow);
 }
-.icon_previousLabel {
-  width: 24px;
-  height: 24px;
-  fill: rgba(38, 38, 38, 0.5);
+.icon_firstPage,
+.icon_previousLabel,
+.icon_nextLabel,
+.icon_lastPage {
+  fill: var(--color-black);
 }
+.icon_previousLabel,
 .icon_nextLabel {
   width: 24px;
   height: 24px;
-  fill: var(--color-black);
+}
+.icon_firstPage,
+.icon_lastPage {
+  width: 31px;
+  height: 24px;
 }
 
 .firstPage,
@@ -78,30 +84,29 @@
   align-items: center;
   justify-content: center;
 }
-.icon_firstPage {
-  width: 31px;
-  height: 24px;
-  fill: rgba(38, 38, 38, 0.5);
-}
-.icon_lastPage {
-  width: 31px;
-  height: 24px;
-  fill: var(--color-black);
-}
-.lastPage:disabled,
-.firstPage:disabled {
-  display: none;
-}
+
 .firstPage:hover,
 .lastPage:hover {
   border-color: var(--color-yellow);
 }
-.pagination li.previous.disabled {
-  display: none;
+.firstPage:disabled,
+.lastPage:disabled {
+  cursor: default;
+}
+.pagination li.disabled {
+  cursor: default;
 }
 
-.pagination li.next.disabled {
-  display: none;
+.pagination li.disabled a {
+  cursor: default;
+}
+.firstPage:disabled .icon_firstPage,
+.lastPage:disabled .icon_lastPage {
+  fill: rgba(38, 38, 38, 0.15);
+}
+.pagination li.disabled .icon_previousLabel,
+.pagination li.disabled .icon_nextLabel {
+  fill: rgba(38, 38, 38, 0.15);
 }
 @media screen and (min-width: 768px) {
   .paginationWrap {
@@ -114,7 +119,11 @@
     min-width: 44px;
     height: 44px;
   }
-
+  .firstPage,
+  .lastPage {
+    min-width: 44px;
+    height: 44px;
+  }
   .pagination li a {
     font-size: 18px;
   }

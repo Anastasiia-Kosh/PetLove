@@ -96,7 +96,6 @@
   line-height: 1;
   letter-spacing: -0.03em;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 8px;
 }

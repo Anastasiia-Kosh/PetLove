@@ -1,0 +1,121 @@
+.paginationWrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: center;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination li {
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  cursor: pointer;
+  color: var(--color-black);
+  transition:
+    background-color 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.pagination li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.28;
+  text-decoration: none;
+}
+
+.pagination li:hover {
+  border-color: var(--color-yellow);
+}
+
+.pagination li.active {
+  color: var(--color-white);
+  border-color: var(--color-yellow);
+  background-color: var(--color-yellow);
+}
+
+.pagination li.active a {
+  color: var(--color-surface);
+}
+
+.pagination li.active:hover {
+  background-color: var(--color-dark-yellow);
+}
+.icon_previousLabel {
+  width: 24px;
+  height: 24px;
+  fill: rgba(38, 38, 38, 0.5);
+}
+.icon_nextLabel {
+  width: 24px;
+  height: 24px;
+  fill: var(--color-black);
+}
+
+.firstPage,
+.lastPage {
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon_firstPage {
+  width: 31px;
+  height: 24px;
+  fill: rgba(38, 38, 38, 0.5);
+}
+.icon_lastPage {
+  width: 31px;
+  height: 24px;
+  fill: var(--color-black);
+}
+.lastPage:disabled,
+.firstPage:disabled {
+  display: none;
+}
+.firstPage:hover,
+.lastPage:hover {
+  border-color: var(--color-yellow);
+}
+.pagination li.previous.disabled {
+  display: none;
+}
+
+.pagination li.next.disabled {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .paginationWrap {
+    gap: 10px;
+  }
+  .pagination {
+    gap: 8px;
+  }
+  .pagination li {
+    min-width: 44px;
+    height: 44px;
+  }
+
+  .pagination li a {
+    font-size: 18px;
+  }
+}

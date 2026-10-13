@@ -1,0 +1,31 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 44px;
+}
+.item {
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  .list {
+    column-gap: 24px;
+    row-gap: 32px;
+    margin-top: 0;
+    margin-bottom: 60px;
+  }
+  .item {
+    width: calc((100% - 24px) / 2);
+  }
+}
+@media screen and (min-width: 1280px) {
+  .list {
+    column-gap: 35px;
+    row-gap: 40px;
+  }
+  .item {
+    width: calc((100% - 70px) / 3);
+  }
+}

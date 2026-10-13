@@ -42,6 +42,7 @@ export default function AuthNavigation({
     } finally {
       localStorage.removeItem("token");
       dispatch(clearUser());
+      setIsLogoutModalOpen(false);
       router.replace("/");
     }
   };

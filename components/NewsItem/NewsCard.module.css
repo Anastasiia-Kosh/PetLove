@@ -1,0 +1,87 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
+}
+.photoWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.photo {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+.photo:hover,
+.photo:focus {
+  transform: scale(1.025);
+}
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 12px;
+}
+.title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+.dataWrap {
+  display: flex;
+  justify-content: space-between;
+}
+.date {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.02em;
+  color: rgba(38, 38, 38, 0.5);
+}
+.cardLink {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--color-yellow);
+  transition: transform 200ms ease;
+}
+.cardLink:hover,
+.cardLink:focus {
+  transform: scale(1.06);
+}
+@media screen and (min-width: 768px) {
+  .card {
+    gap: 28px;
+  }
+  .content {
+    gap: 14px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .text,
+  .cardLink,
+  .date {
+    font-size: 16px;
+  }
+}

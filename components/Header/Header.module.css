@@ -6,10 +6,12 @@
   z-index: 800;
   height: 40px;
   color: var(--color-black);
+  background-color: var(--color-bg);
 }
 
 .headerHome {
   color: var(--color-white);
+  background-color: transparent;
 }
 
 .headerInner {

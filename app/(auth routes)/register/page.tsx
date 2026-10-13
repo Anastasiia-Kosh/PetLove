@@ -62,10 +62,10 @@ export default function RegisterPage() {
         email: data.email,
         password: data.password,
       });
-      localStorage.setItem("token", user.token);
 
       const fullUser = await currentUserFullInfo(user.token);
 
+      localStorage.setItem("token", fullUser.token);
       dispatch(setUser(fullUser));
 
       toast.success(`Registration successful! Welcome, ${user.name}.`);

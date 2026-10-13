@@ -7,7 +7,7 @@ import css from "./UserBar.module.css";
 
 export default function UserBar() {
   const user = useAppSelector((state) => state.auth.user);
-  console.log("UserBar user:", user);
+
   if (user === null) {
     return null;
   }

@@ -18,7 +18,11 @@ export type IconName =
   | "close"
   | "trash"
   | "edit"
-  | "heart";
+  | "heart"
+  | "next"
+  | "prev"
+  | "nextGroup"
+  | "prevGroup";
 
 interface IconProps {
   name: IconName;

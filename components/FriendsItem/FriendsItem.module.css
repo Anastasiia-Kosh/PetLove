@@ -1,0 +1,99 @@
+.card {
+  display: flex;
+  align-items: flex-start;
+  border-radius: 15px;
+  background-color: var(--color-white);
+  padding: 40px 20px;
+  height: 100%;
+  gap: 14px;
+  position: relative;
+}
+.work {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border-radius: 30px;
+  padding: 8px;
+  background-color: var(--color-milk);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33333;
+  letter-spacing: -0.02em;
+  color: var(--color-yellow);
+}
+.photoWrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.photo {
+  border-radius: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+.photo:hover,
+.photo:focus {
+  transform: scale(1.025);
+}
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 14px;
+}
+.title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+}
+.addresWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.address {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  transition: color 200ms ease;
+}
+.addressAccent {
+  color: rgba(38, 38, 38, 0.5);
+}
+.address:hover,
+.title:hover {
+  color: var(--color-yellow);
+}
+@media screen and (min-width: 768px) {
+  .card {
+    gap: 16px;
+  }
+  .photoWrapper {
+    width: 90px;
+    height: 90px;
+  }
+  .content {
+    gap: 20px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .work {
+    font-size: 14px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .card {
+    gap: 20px;
+  }
+}

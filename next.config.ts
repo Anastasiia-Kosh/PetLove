@@ -1,19 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-
   images: {
-	  remotePatterns: [
-		  {
+    remotePatterns: [
+      {
         protocol: "https",
         hostname: "www.nytimes.com",
       },
-       {
-      protocol: "https",
-      hostname: "media4.giphy.com",
-    },
-	    ]
-	},
+      {
+        protocol: "https",
+        hostname: "media4.giphy.com",
+      },
+      {
+        protocol: "https",
+        hostname: "ftp.goit.study",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

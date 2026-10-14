@@ -19,7 +19,7 @@ export default function NewsCard({ news }: NewsItemProps) {
           alt={news.title}
           fill
           className={css.photo}
-          sizes="(min-width: 1440px) 361px, (min-width: 768px) 340px, 335px"
+          sizes="(min-width: 1280px) 361px, (min-width: 768px) 340px, 335px"
         />
       </div>
 

@@ -1,6 +1,7 @@
 import type { CurrentFullResponse, CurrentResponse, User } from "@/types/user";
 import { apiInstance } from "./api";
 import { NewsResponse } from "@/types/news";
+import { Friend } from "@/types/friends";
 
 export interface RegisterRequest {
   name: string;
@@ -65,5 +66,10 @@ export const getNews = async ({
     },
   });
 
+  return data;
+};
+
+export const getFriends = async () => {
+  const { data } = await apiInstance.get<Friend[]>("/friends");
   return data;
 };

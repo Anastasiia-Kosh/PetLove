@@ -11,8 +11,8 @@ export interface Friend {
   url: string;
   addressUrl: string;
   imageUrl: string;
-  address: string;
   workDays: WorkDay[] | null;
-  phone: string;
-  email: string;
+  phone: string | null;
+  email: string | null;
+  address: string | null;
 }

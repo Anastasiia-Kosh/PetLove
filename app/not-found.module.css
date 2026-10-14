@@ -13,7 +13,7 @@
   border-radius: 30px;
   gap: 20px;
   background-color: var(--color-yellow);
-  min-height: calc(100dvh - 88px);
+  min-height: calc(100dvh - 108px);
 }
 .code {
   display: flex;
@@ -81,7 +81,7 @@
   .content {
     border-radius: 60px;
     gap: 40px;
-    min-height: calc(100dvh - 114px);
+    min-height: calc(100dvh - 114px- 32px);
   }
   .code {
     gap: 0;

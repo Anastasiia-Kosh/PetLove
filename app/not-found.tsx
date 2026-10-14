@@ -15,7 +15,7 @@ export default function NotFound() {
                 alt="This page not found"
                 fill
                 className={css.photo}
-                sizes="(min-width: 1280px) 90px, (min-width: 768px) 280px, 109px"
+                sizes="(min-width: 768px) 280px, 109px"
               />
             </div>
             <p className={css.codeNumber}>4</p>

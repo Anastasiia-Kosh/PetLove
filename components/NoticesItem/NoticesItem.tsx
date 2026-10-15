@@ -8,9 +8,13 @@ interface NoticesItemProps {
 }
 
 export default function NoticesItem({ notice }: NoticesItemProps) {
-      const formattedDate = new Date(
-    notice.birthday.replace(/([+-]\d{2})(\d{2})$/, "$1:$2"),
-  ).toLocaleDateString("en-GB");
+const formattedDate = notice.birthday
+  ? new Date(
+      notice.birthday.replace(/([+-]\d{2})(\d{2})$/, "$1:$2"),
+    )
+      .toLocaleDateString("en-GB")
+      .replaceAll("/", ".")
+  : "Unknown";
   return (
     <article className={css.card}>
       <div className={css.photoWrapper}>
@@ -19,6 +23,7 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
           alt={notice.title}
           fill
           className={css.photo}
+          loading="eager"
           sizes="(min-width: 1280px) 315px, (min-width: 768px) 294px, 287px"
         />
       </div>

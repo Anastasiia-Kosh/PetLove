@@ -5,7 +5,7 @@ export interface NoticeItem {
   price: number;
   title: string;
   name: string;
-  birthday: string;
+  birthday: string | null;
   comment: string;
   sex: string;
   location: string;

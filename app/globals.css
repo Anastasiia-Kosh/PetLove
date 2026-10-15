@@ -66,7 +66,8 @@ button {
   border: none;
   padding: 0;
   outline: none;
-  background: none;
+  background: transparent;
+  color: inherit;
 }
 .visually-hidden {
   position: absolute;

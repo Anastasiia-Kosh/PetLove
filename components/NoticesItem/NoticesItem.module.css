@@ -1,0 +1,133 @@
+.card {
+  border-radius: 16px;
+  padding: 32px;
+  background-color: var(--color-white);
+}
+.photoWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 24px;
+}
+.photo {
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+.photo:hover,
+.photo:focus {
+  transform: scale(1.025);
+}
+.titleRating {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.rating {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.star {
+  width: 16px;
+  height: 16px;
+  fill: var(--color-yellow);
+}
+.features {
+  display: flex;
+  justify-content: space-around;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.featuresItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.featuresTitle {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(38, 38, 38, 0.5);
+}
+.featuresDescr {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16667;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+.comment {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  margin-bottom: 16px;
+}
+.price {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+.buttonsWrap {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.buttonMore {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+  border-radius: 30px;
+  padding: 14px 0;
+  width: 100%;
+  background-color: var(--color-yellow);
+  transition: background-color 0.3s ease;
+}
+.buttonMore:hover,
+.buttonMore:focus {
+  background-color: var(--color-dark-yellow);
+}
+.buttonHeart {
+  width: 100%;
+  max-width: 44px;
+  height: 44px;
+  border-radius: 30px;
+  background-color: var(--color-milk);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heart {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-yellow);
+  fill: none;
+}
+.buttonHeart:hover,
+.buttonHeart:focus {
+  background-color: var(--color-dark-milk);
+}

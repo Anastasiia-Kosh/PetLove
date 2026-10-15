@@ -1,0 +1,1 @@
+export type SortBy =  "popular" | "unpopular" | "expensive" | "cheap" | null;

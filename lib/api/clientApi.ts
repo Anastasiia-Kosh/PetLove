@@ -1,7 +1,9 @@
-import type { CurrentFullResponse, CurrentResponse, User } from "@/types/user";
 import { apiInstance } from "./api";
-import { NewsResponse } from "@/types/news";
-import { Friend } from "@/types/friends";
+import type { CurrentFullResponse, CurrentResponse, User } from "@/types/user";
+import type { NewsResponse } from "@/types/news";
+import type { Friend } from "@/types/friends";
+import type { NoticesResponce } from "@/types/notice";
+import type { City } from "@/types/city";
 
 export interface RegisterRequest {
   name: string;
@@ -71,5 +73,73 @@ export const getNews = async ({
 
 export const getFriends = async () => {
   const { data } = await apiInstance.get<Friend[]>("/friends");
+  return data;
+};
+
+interface GetNoticesParams {
+  keyword?: string;
+  category?: string;
+  species?: string;
+  locationId?: string;
+  byDate?: boolean;
+  byPrice?: boolean;
+  byPopularity?: boolean;
+  sex?: string;
+  page?: number;
+  limit?: number;
+}
+
+export const getNotices = async ({
+  keyword = "",
+  category,
+  species,
+  locationId = "",
+  byDate,
+  byPrice,
+  byPopularity,
+  sex,
+  page = 1,
+  limit = 6,
+}: GetNoticesParams = {}) => {
+  const { data } = await apiInstance.get<NoticesResponce>("/notices", {
+    params: {
+      keyword,
+      category,
+      species,
+      locationId,
+      byDate,
+      byPrice,
+      byPopularity,
+      sex,
+      page,
+      limit,
+    },
+  });
+
+  return data;
+};
+
+export const getNoticeCategories = async () => {
+  const { data } = await apiInstance.get<string[]>("/notices/categories");
+
+  return data;
+};
+
+export const getNoticeSex = async () => {
+  const { data } = await apiInstance.get<string[]>("/notices/sex");
+
+  return data;
+};
+
+export const getNoticeSpecies = async () => {
+  const { data } = await apiInstance.get<string[]>("/notices/species");
+
+  return data;
+};
+export const getCities = async (keyword: string) => {
+  const { data } = await apiInstance.get<City[]>("/cities/", {
+    params: { keyword },
+  });
+
   return data;
 };

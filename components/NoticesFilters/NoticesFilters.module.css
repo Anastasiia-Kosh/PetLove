@@ -1,0 +1,94 @@
+.mainWrapFilters {
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+  background-color: var(--color-milk);
+  padding: 20px;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.filter {
+  position: relative;
+}
+.filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 30px;
+  background-color: var(--color-white);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  min-width: 140px;
+}
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  margin: 0;
+  list-style: none;
+  border-radius: 15px;
+  border: 1px solid var(--color-yellow);
+  background-color: var(--color-white);
+}
+.option {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.6);
+}
+.option:hover,
+.selected {
+  color: var(--color-yellow);
+}
+.iconChevron {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-black);
+  fill: none;
+  transition: transform 200ms ease;
+}
+.iconChevronOpen {
+  transform: rotate(180deg);
+}
+.sortWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sortButton {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 12px;
+  background-color: var(--color-white);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  gap: 6px;
+}
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-white);
+}
+.sortButton.active {
+  background-color: var(--color-yellow);
+  color: var(--color-white);
+}

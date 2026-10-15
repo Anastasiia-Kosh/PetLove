@@ -22,7 +22,8 @@ export type IconName =
   | "next"
   | "prev"
   | "nextGroup"
-  | "prevGroup";
+  | "prevGroup"
+  | "star";
 
 interface IconProps {
   name: IconName;

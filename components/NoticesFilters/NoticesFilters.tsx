@@ -9,6 +9,7 @@ import {
   getNoticeSex,
   getNoticeSpecies,
 } from "@/lib/api/clientApi";
+import Location from "../Location/Location";
 
 interface NoticesFiltersProps {
   selectedCategory: string | null;
@@ -19,6 +20,8 @@ interface NoticesFiltersProps {
   onSpeciesChange: (species: string | null) => void;
   sortBy: SortBy;
   onSortChange: (sortBy: SortBy) => void;
+  onLocationChange: (locationId: string | null) => void;
+  selectedLocationId: string | null;
 }
 
 export default function NoticesFilters({
@@ -30,6 +33,8 @@ export default function NoticesFilters({
   onSpeciesChange,
   sortBy,
   onSortChange,
+  onLocationChange,
+  selectedLocationId,
 }: NoticesFiltersProps) {
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
@@ -66,7 +71,7 @@ export default function NoticesFilters({
 
   return (
     <div className={css.mainWrapFilters}>
-      <SearchBox />
+      <SearchBox className={css.searchBox} />
       <div className={css.filters}>
         <div className={css.filter}>
           <button
@@ -229,7 +234,10 @@ export default function NoticesFilters({
           )}
         </div>
       </div>
-      <div className={css.location}>{/* Тут пізніше буде react-select */}</div>
+      <div className={css.location}>
+        <Location onLocationChange={ onLocationChange} selectedLocationId={selectedLocationId}/>
+      </div>
+<div className={css.divider} />
       <div className={css.sortWrapper}>
         <div
           className={`${css.sortButton} ${sortBy === "popular" ? css.active : ""}`}

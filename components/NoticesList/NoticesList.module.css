@@ -8,20 +8,16 @@
   width: 100%;
 }
 @media screen and (min-width: 768px) {
-  .list {
-    column-gap: 24px;
-    row-gap: 32px;
-  }
   .item {
-    width: calc((100% - 24px) / 2);
+    width: calc((100% - 20px) / 2);
   }
 }
 @media screen and (min-width: 1280px) {
   .list {
-    column-gap: 35px;
+    column-gap: 32px;
     row-gap: 40px;
   }
   .item {
-    width: calc((100% - 70px) / 3);
+    width: calc((100% - 64px) / 3);
   }
 }

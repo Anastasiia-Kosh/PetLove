@@ -27,6 +27,8 @@
 @media only screen and (min-width: 1280px) {
   .page {
     padding-top: 178px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
   .title {
     margin-bottom: 60px;

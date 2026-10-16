@@ -6,18 +6,84 @@ import { getNotices } from "@/lib/api/clientApi";
 import type { NoticeItem } from "@/types/notice";
 import NoticesList from "@/components/NoticesList/NoticesList";
 import type { SortBy } from "@/types/filters";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function NoticesPage() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
   const keyword = searchParams.get("keyword") ?? "";
+  const selectedCategory = searchParams.get("category");
+  const selectedSex = searchParams.get("sex");
+  const selectedSpecies = searchParams.get("species");
+  const sortParam = searchParams.get("sort");
+  const sortBy: SortBy =
+    sortParam === "popular" ||
+    sortParam === "unpopular" ||
+    sortParam === "expensive" ||
+    sortParam === "cheap"
+      ? sortParam
+      : null;
+  const selectedLocation = searchParams.get("locationId");
 
   const [notices, setNotices] = useState<NoticeItem[]>([]);
 
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedSex, setSelectedSex] = useState<string | null>(null);
-  const [selectedSpecies, setSelectedSpecies] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<SortBy>(null);
+  const handleCategoryChange = (category: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (category) {
+      params.set("category", category);
+    } else {
+      params.delete("category");
+    }
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
+  };
+  const handleSexChange = (sex: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (sex) {
+      params.set("sex", sex);
+    } else {
+      params.delete("sex");
+    }
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
+  };
+  const handleSpeciesChange = (species: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (species) {
+      params.set("species", species);
+    } else {
+      params.delete("species");
+    }
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
+  };
+  const handleSortChange = (sort: SortBy) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (sort) {
+      params.set("sort", sort);
+    } else {
+      params.delete("sort");
+    }
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
+  };
+    const handleLocationChange = (locationId: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (locationId) {
+      params.set("locationId", locationId);
+    } else {
+      params.delete("locationId");
+    }
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   useEffect(() => {
     const fetchNotices = async () => {
@@ -38,29 +104,34 @@ export default function NoticesPage() {
             : sortBy === "cheap"
               ? true
               : undefined,
+        locationId: selectedLocation || undefined,
       });
 
       setNotices(data.results);
     };
 
     fetchNotices();
-  }, [selectedCategory, selectedSex, selectedSpecies, sortBy, keyword]);
+  }, [selectedCategory, selectedSex, selectedSpecies, sortBy, keyword, selectedLocation]);
 
   return (
     <section className={css.page}>
       <div className="container">
-        <h1>Find your favorite pet</h1>
+        <h1 className={css.title}>Find your favorite pet</h1>
         <NoticesFilters
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
+          onCategoryChange={handleCategoryChange}
           selectedSex={selectedSex}
-          onSexChange={setSelectedSex}
+          onSexChange={handleSexChange}
           selectedSpecies={selectedSpecies}
-          onSpeciesChange={setSelectedSpecies}
+          onSpeciesChange={handleSpeciesChange}
           sortBy={sortBy}
-          onSortChange={setSortBy}
+          onSortChange={handleSortChange}
+          onLocationChange={handleLocationChange}
+          selectedLocationId={selectedLocation}
         />
-        <NoticesList notices={notices} />
+        <div className={css.list}>
+          <NoticesList notices={notices} />
+        </div>
       </div>
     </section>
   );

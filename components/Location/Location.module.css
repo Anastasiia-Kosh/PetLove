@@ -1,0 +1,9 @@
+.container {
+  width: 100%;
+}
+.icon {
+  fill: none;
+  stroke: var(--color-black);
+  width: 18px;
+  height: 18px;
+}

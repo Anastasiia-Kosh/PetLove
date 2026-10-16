@@ -24,6 +24,11 @@
     padding-top: 178px;
   }
   .title {
+    padding-left: 32px;
     margin-bottom: 60px;
+  }
+  .list {
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }

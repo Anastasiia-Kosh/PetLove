@@ -4,6 +4,11 @@
   border-radius: 30px;
   background-color: var(--color-milk);
   padding: 20px;
+  margin: 40px 0;
+}
+.mainWrapFilters .searchBox {
+  border: var(--color-white);
+  background-color: var(--color-white);
 }
 .filters {
   display: flex;
@@ -14,6 +19,8 @@
 }
 .filter {
   position: relative;
+  width: calc((100% - 16px) / 3);
+  min-width: 106px;
 }
 .filterButton {
   display: flex;
@@ -26,7 +33,11 @@
   font-size: 14px;
   line-height: 1.28571;
   letter-spacing: -0.03em;
-  min-width: 140px;
+  width: 100%;
+}
+.filterButton:hover,
+.filterButton:focus {
+  border: 1px solid var(--color-yellow);
 }
 .dropdown {
   display: flex;
@@ -69,6 +80,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  position: relative;
 }
 .sortButton {
   display: flex;
@@ -82,13 +94,45 @@
   letter-spacing: -0.03em;
   gap: 6px;
 }
+
 .icon {
   width: 18px;
   height: 18px;
   fill: none;
   stroke: var(--color-white);
 }
+.sortButton:hover {
+  border: 1px solid var(--color-yellow);
+}
 .sortButton.active {
   background-color: var(--color-yellow);
   color: var(--color-white);
+}
+.divider {
+  height: 1px;
+  background-color: rgba(38, 38, 38, 0.1);
+  margin: 20px 0;
+}
+@media screen and (min-width: 768px) {
+  .mainWrapFilters {
+    padding: 40px 32px;
+    margin-top: 44px;
+    margin-bottom: 32px;
+  }
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .searchBox {
+    background-color: var(--color-white);
+    width: 265px;
+  }
+  .filters {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .filter {
+    width: 170px;
+  }
 }

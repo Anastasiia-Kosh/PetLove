@@ -213,7 +213,7 @@
     display: none;
   }
   .headerInner {
-    padding: 0 64px;
+    padding: 0 32px;
     justify-content: space-between;
   }
   .desktopNav {

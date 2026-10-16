@@ -137,9 +137,14 @@ export const getNoticeSpecies = async () => {
   return data;
 };
 export const getCities = async (keyword: string) => {
-  const { data } = await apiInstance.get<City[]>("/cities/", {
+  const { data } = await apiInstance.get<City[]>("/cities", {
     params: { keyword },
   });
+
+  return data;
+};
+export const getCitiesLocations = async () => {
+  const { data } = await apiInstance.get<City[]>("/cities/locations");
 
   return data;
 };

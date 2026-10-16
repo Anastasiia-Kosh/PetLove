@@ -5,7 +5,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import css from "./SearchBox.module.css";
 import Icon from "../Icon/Icon";
 
-export default function SearchBox() {
+interface SearchBoxProps {
+  className?: string;
+}
+
+export default function SearchBox({ className }: SearchBoxProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -33,7 +37,7 @@ export default function SearchBox() {
   };
 
   return (
-    <form className={css.form} action={handleSearch}>
+    <form className={`${css.form} ${className ?? ""}`} action={handleSearch}>
       <input
         className={css.input}
         type="text"

@@ -1,15 +1,19 @@
 .card {
+  display: flex;
+  flex-direction: column;
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px;
   background-color: var(--color-white);
+  height: 100%;
+  gap: 24px;
 }
 .photoWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  /* aspect-ratio: 4 / 3; */
   overflow: hidden;
   border-radius: 16px;
-  margin-bottom: 24px;
+  height: 175px;
 }
 .photo {
   object-fit: cover;
@@ -18,6 +22,11 @@
 .photo:hover,
 .photo:focus {
   transform: scale(1.025);
+}
+.content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
 .titleRating {
   display: flex;
@@ -89,6 +98,7 @@
   font-size: 16px;
   line-height: 1.25;
   margin-bottom: 12px;
+  margin-top: auto;
 }
 .buttonsWrap {
   display: flex;
@@ -130,4 +140,28 @@
 .buttonHeart:hover,
 .buttonHeart:focus {
   background-color: var(--color-dark-milk);
+}
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 18px;
+  }
+  .features {
+    gap: 16px;
+  }
+  .price {
+    font-size: 18px;
+  }
+  .buttonMore {
+    font-weight: 500;
+    font-size: 16px;
+  }
+  .buttonHeart {
+    max-width: 48px;
+    height: 48px;
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .features {
+    gap: 20px;
+  }
 }

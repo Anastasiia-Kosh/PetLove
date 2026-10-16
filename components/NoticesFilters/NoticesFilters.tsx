@@ -71,6 +71,7 @@ export default function NoticesFilters({
 
   return (
     <div className={css.mainWrapFilters}>
+        <div className={css.wrapper}>
       <SearchBox className={css.searchBox} />
       <div className={css.filters}>
         <div className={css.filter}>
@@ -237,6 +238,7 @@ export default function NoticesFilters({
       <div className={css.location}>
         <Location onLocationChange={ onLocationChange} selectedLocationId={selectedLocationId}/>
       </div>
+</div>
 <div className={css.divider} />
       <div className={css.sortWrapper}>
         <div

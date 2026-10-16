@@ -27,14 +27,15 @@ const selectStyles: StylesConfig<LocationOption, false> = {
   control: (base, state) => ({
     ...base,
     minHeight: "auto",
-border: "none",
-outline: state.isFocused ? "1px solid var(--color-yellow)" : "none",
+    border: "none",
+    outline: state.isFocused ? "1px solid var(--color-yellow)" : "none",
     fontWeight: 500,
-    fontSize: "14px",
     lineHeight: 1.28571,
     letterSpacing: "-0.03em",
     borderRadius: "30px",
-    padding: "12px",
+    fontSize: "var(--location-font-size)",
+    padding: "var(--location-padding)",
+    width: "100%",
     boxShadow: "none",
     cursor: "text",
     "&:hover": {
@@ -52,7 +53,7 @@ outline: state.isFocused ? "1px solid var(--color-yellow)" : "none",
     padding: 0,
     color: "var(--color-black)",
     fontWeight: 500,
-    fontSize: "14px",
+    fontSize: "var(--location-font-size)",
     lineHeight: 1.28571,
     letterSpacing: "-0.03em",
   }),
@@ -115,7 +116,7 @@ const CustomClearIndicator = (
   props: ClearIndicatorProps<LocationOption, false>,
 ) => (
   <components.ClearIndicator {...props}>
-    <Icon name="close" width={18} height={18} className={css.icon}/>
+    <Icon name="close" width={18} height={18} className={css.icon} />
   </components.ClearIndicator>
 );
 
@@ -123,7 +124,7 @@ const CustomDropdownIndicator = (
   props: DropdownIndicatorProps<LocationOption, false>,
 ) => (
   <components.DropdownIndicator {...props}>
-        <Icon name="search" width={18} height={18} className={css.icon}/>
+    <Icon name="search" width={18} height={18} className={css.icon} />
   </components.DropdownIndicator>
 );
 
@@ -248,11 +249,12 @@ export default function Location({
       isClearable
       formatOptionLabel={formatOptionLabel}
       noOptionsMessage={() => "Start typing a city"}
-          styles={selectStyles}
-          components={{
-  ClearIndicator: CustomClearIndicator,
-  DropdownIndicator: CustomDropdownIndicator,
-}}
+      className={css.container}
+      styles={selectStyles}
+      components={{
+        ClearIndicator: CustomClearIndicator,
+        DropdownIndicator: CustomDropdownIndicator,
+      }}
     />
   );
 }

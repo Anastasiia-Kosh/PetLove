@@ -1,9 +1,20 @@
 .container {
   width: 100%;
+  --location-font-size: 14px;
+  --location-padding: 12px;
 }
+
 .icon {
   fill: none;
   stroke: var(--color-black);
   width: 18px;
   height: 18px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 227px;
+    --location-font-size: 16px;
+    --location-padding: 14px;
+  }
 }

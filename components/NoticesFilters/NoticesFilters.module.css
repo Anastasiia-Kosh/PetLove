@@ -19,8 +19,9 @@
 }
 .filter {
   position: relative;
-  width: calc((100% - 16px) / 3);
-  min-width: 106px;
+  /* width: 100%; */
+  /* width: calc((100% - 4px) / 3);
+  min-width: 106px; */
 }
 .filterButton {
   display: flex;

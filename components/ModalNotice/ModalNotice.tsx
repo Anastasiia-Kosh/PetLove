@@ -12,6 +12,7 @@ import css from "./ModalNotice.module.css";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface ModalNoticeProps {
   notice: NoticeDetails;
@@ -25,6 +26,7 @@ export default function ModalNotice({ onClose, notice }: ModalNoticeProps) {
     state.auth.favoriteNoticeIds.includes(notice._id),
   );
   const [showContacts, setShowContacts] = useState(false);
+
   const handleFavoriteClick = async () => {
     try {
       const favorites = isFavorite
@@ -32,8 +34,13 @@ export default function ModalNotice({ onClose, notice }: ModalNoticeProps) {
         : await addNoticeToFavorites(notice._id);
 
       dispatch(updateFavorites(favorites));
-    } catch (error) {
-      console.error("Failed to update favorites:", error);
+      if (isFavorite) {
+        toast.success("Removed from favorites");
+      } else {
+        toast.success("Added to favorites");
+      }
+    } catch {
+      toast.error("Failed to update favorites");
     }
   };
 

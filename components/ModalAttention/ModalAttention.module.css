@@ -86,3 +86,20 @@
 .buttonReg:hover {
   background-color: var(--color-dark-milk);
 }
+@media screen and (min-width: 768px) {
+  .modalAttention {
+    padding: 60px;
+  }
+  .modalTitle {
+    font-size: 24px;
+  }
+  .modalActions {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+  .buttonReg,
+  .buttonLogin {
+    padding: 14px;
+    min-width: 140px;
+  }
+}

@@ -13,6 +13,7 @@ import {
   removeNoticeFromFavorites,
   getNoticeById,
 } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
 
 interface NoticesItemProps {
   notice: NoticeItem;
@@ -65,8 +66,13 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
         : await addNoticeToFavorites(notice._id);
 
       dispatch(updateFavorites(favorites));
-    } catch (error) {
-      console.error("Failed to update favorites:", error);
+      if (isFavorite) {
+        toast.success("Removed from favorites");
+      } else {
+        toast.success("Added to favorites");
+      }
+    } catch {
+      toast.error("Failed to update favorites");
     }
   };
 

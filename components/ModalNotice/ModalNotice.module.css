@@ -40,12 +40,6 @@
 .image {
   object-fit: cover;
 }
-.title {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.25;
-  margin-bottom: 10px;
-}
 .category {
   position: absolute;
   top: 0;
@@ -60,13 +54,12 @@
   color: var(--color-yellow);
   z-index: 60;
 }
-.name {
+.title {
   font-weight: 700;
   font-size: 16px;
   line-height: 1.25;
   margin-bottom: 10px;
 }
-
 .rating {
   font-weight: 500;
   font-size: 14px;
@@ -187,4 +180,44 @@
 }
 .contacts a:hover {
   color: var(--color-yellow);
+}
+@media screen and (min-width: 768px) {
+  .modalNotice {
+    padding: 40px 70px;
+  }
+  .cardImage {
+    margin-bottom: 16px;
+  }
+  .imageWrap {
+    height: 150px;
+    width: 150;
+  }
+  .image {
+    object-fit: cover;
+    height: 150px;
+    width: 150;
+  }
+
+  .category {
+    font-size: 14px;
+  }
+  .title,
+  .price {
+    font-size: 18px;
+  }
+
+  .rating {
+    margin-bottom: 20px;
+  }
+
+  .buttonAdd,
+  .buttonContact {
+    padding: 14px 0;
+  }
+
+  .contacts {
+    flex-direction: row;
+    gap: 10px;
+    font-size: 16px;
+  }
 }

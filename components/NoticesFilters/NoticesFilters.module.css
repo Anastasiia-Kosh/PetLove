@@ -25,6 +25,7 @@
 
 .filter {
   min-width: 0;
+  position: relative;
 }
 .filter:nth-child(3) {
   grid-column: 1 / -1;

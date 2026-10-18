@@ -1,14 +1,14 @@
 .paginationWrap {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 10px;
   justify-content: center;
 }
 .pagination {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 2px;
+  justify-content: space-between;
+  gap: 10px;
   padding: 0;
   list-style: none;
 }
@@ -109,12 +109,12 @@
   fill: rgba(38, 38, 38, 0.15);
 }
 @media screen and (min-width: 768px) {
-  .paginationWrap {
+  /* .paginationWrap {
     gap: 10px;
   }
   .pagination {
-    gap: 8px;
-  }
+    gap: 10px;
+  } */
   .pagination li {
     min-width: 44px;
     height: 44px;

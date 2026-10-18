@@ -2,7 +2,7 @@ import { apiInstance } from "./api";
 import type { CurrentFullResponse, CurrentResponse, User } from "@/types/user";
 import type { NewsResponse } from "@/types/news";
 import type { Friend } from "@/types/friends";
-import type { NoticesResponce } from "@/types/notice";
+import type { NoticesResponce,  NoticeDetails } from "@/types/notice";
 import type { City } from "@/types/city";
 
 export interface RegisterRequest {
@@ -145,6 +145,29 @@ export const getCities = async (keyword: string) => {
 };
 export const getCitiesLocations = async () => {
   const { data } = await apiInstance.get<City[]>("/cities/locations");
+
+  return data;
+};
+export const getNoticeById = async (id: string) => {
+  const { data } = await apiInstance.get<NoticeDetails>(
+    `/notices/${id}`,
+  );
+
+  return data;
+};
+
+export const addNoticeToFavorites = async (id: string) => {
+  const { data } = await apiInstance.post<string[]>(
+    `/notices/favorites/add/${id}`,
+  );
+
+  return data;
+};
+
+export const removeNoticeFromFavorites = async (id: string) => {
+  const { data } = await apiInstance.delete<string[]>(
+    `/notices/favorites/remove/${id}`,
+  );
 
   return data;
 };

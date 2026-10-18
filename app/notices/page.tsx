@@ -7,6 +7,7 @@ import type { NoticeItem } from "@/types/notice";
 import NoticesList from "@/components/NoticesList/NoticesList";
 import type { SortBy } from "@/types/filters";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Pagination from "@/components/Pagination/Pagination";
 
 export default function NoticesPage() {
   const searchParams = useSearchParams();
@@ -28,7 +29,8 @@ export default function NoticesPage() {
   const selectedLocation = searchParams.get("locationId");
 
   const [notices, setNotices] = useState<NoticeItem[]>([]);
-
+  const [totalPages, setTotalPages] = useState(1);
+  const currentPage = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
   const handleCategoryChange = (category: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -73,7 +75,7 @@ export default function NoticesPage() {
     params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   };
-    const handleLocationChange = (locationId: string | null) => {
+  const handleLocationChange = (locationId: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (locationId) {
@@ -105,13 +107,23 @@ export default function NoticesPage() {
               ? true
               : undefined,
         locationId: selectedLocation || undefined,
+        page: currentPage,
       });
 
       setNotices(data.results);
+      setTotalPages(data.totalPages);
     };
 
     fetchNotices();
-  }, [selectedCategory, selectedSex, selectedSpecies, sortBy, keyword, selectedLocation]);
+  }, [
+    selectedCategory,
+    selectedSex,
+    selectedSpecies,
+    sortBy,
+    keyword,
+    selectedLocation,
+    currentPage,
+  ]);
 
   return (
     <section className={css.page}>
@@ -132,6 +144,7 @@ export default function NoticesPage() {
         <div className={css.list}>
           <NoticesList notices={notices} />
         </div>
+        <Pagination totalPages={totalPages} currentPage={currentPage} />
       </div>
     </section>
   );

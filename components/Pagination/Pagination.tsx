@@ -52,7 +52,7 @@ export default function Pagination({
         previousClassName={css.previous}
         nextClassName={css.next}
         disabledClassName={css.disabled}
-        breakLabel="..."
+        breakLabel ="..." 
         previousLabel={<Icon name="prev" className={css.icon_previousLabel} />}
         nextLabel={<Icon name="next" className={css.icon_nextLabel} />}
       />

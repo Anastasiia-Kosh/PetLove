@@ -1,18 +1,75 @@
-import type { NoticeItem } from "@/types/notice";
+"use client";
+import type { NoticeItem, NoticeDetails } from "@/types/notice";
 import css from "./NoticesItem.module.css";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
+import { useState } from "react";
+import ModalAttention from "../ModalAttention/ModalAttention";
+import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
+import { updateFavorites } from "@/lib/store/authStore";
+import ModalNotice from "../ModalNotice/ModalNotice";
+import {
+  addNoticeToFavorites,
+  removeNoticeFromFavorites,
+  getNoticeById,
+} from "@/lib/api/clientApi";
 
 interface NoticesItemProps {
   notice: NoticeItem;
 }
 
 export default function NoticesItem({ notice }: NoticesItemProps) {
+  const dispatch = useAppDispatch();
+
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const user = useAppSelector((state) => state.auth.user);
+  const isFavorite = useAppSelector((state) =>
+    state.auth.favoriteNoticeIds.includes(notice._id),
+  );
+
+  const [openModalAttention, setOpenModalAttention] = useState(false);
+  const [openModalNotice, setOpenModalNotice] = useState(false);
+  const [selectedNotice, setSelectedNotice] = useState<NoticeDetails | null>(
+    null,
+  );
+
   const formattedDate = notice.birthday
     ? new Date(notice.birthday.replace(/([+-]\d{2})(\d{2})$/, "$1:$2"))
         .toLocaleDateString("en-GB")
         .replaceAll("/", ".")
     : "Unknown";
+
+  const handleLearnMore = async () => {
+    if (!isLoggedIn) {
+      setOpenModalAttention(true);
+      return;
+    }
+
+    try {
+      const data = await getNoticeById(notice._id);
+      setSelectedNotice(data);
+      setOpenModalNotice(true);
+    } catch (error) {
+      console.error("Failed to fetch notice details:", error);
+    }
+  };
+
+  const handleFavoriteClick = async () => {
+    if (!isLoggedIn) {
+      setOpenModalAttention(true);
+      return;
+    }
+    try {
+      const favorites = isFavorite
+        ? await removeNoticeFromFavorites(notice._id)
+        : await addNoticeToFavorites(notice._id);
+
+      dispatch(updateFavorites(favorites));
+    } catch (error) {
+      console.error("Failed to update favorites:", error);
+    }
+  };
+
   return (
     <article className={css.card}>
       <div className={css.photoWrapper}>
@@ -67,14 +124,34 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
         <p className={css.comment}>{notice.comment}</p>
         <p className={css.price}>{notice.price ? `$${notice.price}` : "$0"}</p>
         <div className={css.buttonsWrap}>
-          <button type="button" className={css.buttonMore}>
+          <button
+            type="button"
+            className={css.buttonMore}
+            onClick={handleLearnMore}
+          >
             Learn more
           </button>
-          <button type="button" className={css.buttonHeart}>
+
+          <button
+            type="button"
+            className={`${css.buttonHeart} ${
+              isFavorite ? css.buttonHeartActive : ""
+            }`}
+            onClick={handleFavoriteClick}
+          >
             <Icon name="heart" className={css.heart} />
           </button>
         </div>
       </div>
+      {openModalAttention && (
+        <ModalAttention onClose={() => setOpenModalAttention(false)} />
+      )}
+      {openModalNotice && selectedNotice && (
+        <ModalNotice
+          onClose={() => setOpenModalNotice(false)}
+          notice={selectedNotice}
+        />
+      )}
     </article>
   );
 }

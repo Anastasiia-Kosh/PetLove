@@ -21,7 +21,31 @@ export interface NoticesResponce {
   page: number;
   perPage: number;
 }
-
+export interface NoticeDetails {
+  _id: string;
+  species: string;
+  category: string;
+  title: string;
+  name: string;
+  birthday: string;
+  comment: string;
+  sex: string;
+  location: {
+    _id: string;
+    stateEn: string;
+    cityEn: string;
+  };
+  imgURL: string;
+  createdAt: string;
+  user: {
+    _id: string;
+    email: string;
+    phone: string;
+  };
+  popularity: number;
+  updatedAt: string;
+  price: number;
+}
 export interface NoticeFavorites {
   _id: string;
   species: string;

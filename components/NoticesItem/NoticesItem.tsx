@@ -23,7 +23,6 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
   const dispatch = useAppDispatch();
 
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-  const user = useAppSelector((state) => state.auth.user);
   const isFavorite = useAppSelector((state) =>
     state.auth.favoriteNoticeIds.includes(notice._id),
   );

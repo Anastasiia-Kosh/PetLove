@@ -13,6 +13,7 @@ export interface AuthUser {
   token: string;
   avatar: string;
   noticesFavorites?: NoticeFavorites[];
+  phone: string;
 }
 
 export interface CurrentResponse {

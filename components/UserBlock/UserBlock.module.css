@@ -1,0 +1,40 @@
+.avatarWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 100px;
+  width: 94px;
+  height: 94px;
+  margin: 0 auto 8px;
+}
+.photo {
+  object-fit: cover;
+}
+.uploadText {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33333;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 28px;
+}
+.infoEditWrap {
+  margin-bottom: 40px;
+}
+.infoTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.formInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  padding: 12px;
+}

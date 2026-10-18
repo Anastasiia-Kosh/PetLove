@@ -6,15 +6,7 @@ export interface User {
   name: string;
   token: string;
 }
-export interface AuthUser {
-  _id: string;
-  email: string;
-  name: string;
-  token: string;
-  avatar: string;
-  noticesFavorites?: NoticeFavorites[];
-  phone: string;
-}
+export type AuthUser = CurrentFullResponse;
 
 export interface CurrentResponse {
   _id: string;

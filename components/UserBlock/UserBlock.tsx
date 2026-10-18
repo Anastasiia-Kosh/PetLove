@@ -21,16 +21,25 @@ export default function UserBlock() {
           sizes="(min-width: 768px) 110px, 94px"
         />
       </div>
-      <p className={css.uploadText}>Upload photo</p>
 
       <div className={css.infoEditWrap}>
         <h2 className={css.infoTitle}>My information</h2>
         <ul className={css.formInfo}>
-          <li className={css.field}>{user?.name ? user?.name : "Name"}</li>
-          <li className={css.field}>
-            {user?.email ? user?.email : "name@gmail.com"}
-          </li>
-          <li className={css.field}>{user?.phone ? user?.phone : "+380"}</li>
+          {user?.name ? (
+            <li className={css.field}>{user?.name}</li>
+          ) : (
+            <li className={css.fieldDef}>Name</li>
+          )}
+          {user?.email ? (
+            <li className={css.field}>{user?.email}</li>
+          ) : (
+            <li className={css.fieldDef}>name@gmail.com</li>
+          )}
+          {user?.phone ? (
+            <li className={css.field}>{user?.phone}</li>
+          ) : (
+            <li className={css.fieldDef}>+380</li>
+          )}
         </ul>
       </div>
     </div>

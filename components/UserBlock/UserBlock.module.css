@@ -5,18 +5,10 @@
   border-radius: 100px;
   width: 94px;
   height: 94px;
-  margin: 0 auto 8px;
+  margin: 0 auto 30px;
 }
 .photo {
   object-fit: cover;
-}
-.uploadText {
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33333;
-  letter-spacing: -0.02em;
-  text-align: center;
-  margin-bottom: 28px;
 }
 .infoEditWrap {
   margin-bottom: 40px;
@@ -34,6 +26,11 @@
 }
 
 .field {
+  border: 1px solid var(--color-yellow);
+  border-radius: 30px;
+  padding: 12px;
+}
+.fieldDef {
   border: 1px solid rgba(38, 38, 38, 0.15);
   border-radius: 30px;
   padding: 12px;

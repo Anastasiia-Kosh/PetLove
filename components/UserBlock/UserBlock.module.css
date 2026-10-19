@@ -1,3 +1,8 @@
+.userBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 .avatarWrapper {
   position: relative;
   width: 100%;
@@ -5,7 +10,7 @@
   border-radius: 100px;
   width: 94px;
   height: 94px;
-  margin: 0 auto 30px;
+  margin: 0 auto;
 }
 .photo {
   object-fit: cover;

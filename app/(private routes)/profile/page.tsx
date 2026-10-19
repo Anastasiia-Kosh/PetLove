@@ -1,12 +1,14 @@
 "use client";
-import { useAppSelector } from "@/lib/store/hooks";
+
 import css from "./Profile.module.css";
 import Icon from "@/components/Icon/Icon";
+import PetsList from "@/components/PetsList/PetsList";
 import UserBlock from "@/components/UserBlock/UserBlock";
-// import Image from "next/image";
+import { useAppSelector } from "@/lib/store/hooks";
+
 
 export default function ProfilePage() {
-  const user = useAppSelector((state) => state.auth.user);
+const user = useAppSelector((state) => state.auth.user);
   return (
     <section className={css.page}>
       <div className="container">
@@ -29,7 +31,7 @@ export default function ProfilePage() {
                 Add pet <Icon name="plus" className={css.iconPlus} />
               </button>
             </div>
-            {/* картки моїх тварин з можливістю видалити*/}
+            <PetsList pets={user?.pets ?? []} />
           </div>
 
           <button type="button" className={css.logoutBtn}>

@@ -1,0 +1,80 @@
+.card {
+  border: 1px solid rgba(38, 38, 38, 0.1);
+  border-radius: 20px;
+  padding: 12px 46px 12px 12px;
+  display: flex;
+  gap: 14px;
+}
+.photoWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 100px;
+  height: 66px;
+}
+.photo {
+  object-fit: cover;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.title {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.25;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+.features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.featuresItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.featuresTitle {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: rgba(38, 38, 38, 0.5);
+}
+.featuresDescr {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.16667;
+  letter-spacing: -0.02em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+.buttonTrash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-milk);
+  border-radius: 30px;
+  width: 100%;
+  max-width: 30px;
+  height: 30px;
+}
+.trash {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-yellow);
+  fill: none;
+}
+.buttonTrash:hover {
+  background-color: var(--color-dark-milk);
+}

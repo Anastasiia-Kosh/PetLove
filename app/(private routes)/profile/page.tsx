@@ -5,10 +5,14 @@ import Icon from "@/components/Icon/Icon";
 import PetsList from "@/components/PetsList/PetsList";
 import UserBlock from "@/components/UserBlock/UserBlock";
 import { useAppSelector } from "@/lib/store/hooks";
+import { useRouter } from "next/navigation";
 
 
 export default function ProfilePage() {
-const user = useAppSelector((state) => state.auth.user);
+  const router = useRouter();
+  
+  const user = useAppSelector((state) => state.auth.user);
+  
   return (
     <section className={css.page}>
       <div className="container">
@@ -27,7 +31,7 @@ const user = useAppSelector((state) => state.auth.user);
           <div className={css.petsWrap}>
             <div className={css.petAddWrap}>
               <h2 className={css.formTitle}>My pets</h2>
-              <button className={css.addBtn}>
+              <button className={css.addBtn} onClick={()=>{router.push("/add-pet")}}>
                 Add pet <Icon name="plus" className={css.iconPlus} />
               </button>
             </div>

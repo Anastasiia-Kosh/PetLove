@@ -132,6 +132,7 @@
   border-radius: 50%;
   background-color: var(--color-milk);
   margin: 0 auto;
+  margin-top: -10px;
 }
 
 .avatarPreview img {
@@ -191,9 +192,11 @@
   line-height: 1.28571;
   letter-spacing: -0.03em;
   color: rgba(38, 38, 38, 0.8);
+  height: 42px;
 }
 .avatarControls .input {
   padding: 9px;
+  height: 36px;
 }
 .input::placeholder {
   color: rgba(38, 38, 38, 0.5);
@@ -299,9 +302,12 @@
   gap: 12px;
   text-align: left;
   background-color: transparent;
+  text-transform: capitalize;
   cursor: pointer;
 }
-
+.speciesButton.speciesPlaceholder {
+  color: rgba(38, 38, 38, 0.5);
+}
 .speciesArrow {
   width: 18px;
   height: 18px;
@@ -340,6 +346,7 @@
   letter-spacing: -0.03em;
   color: rgba(38, 38, 38, 0.6);
   cursor: pointer;
+  text-transform: capitalize;
 }
 
 .speciesOption:hover,
@@ -439,10 +446,12 @@
   .input {
     padding: 16px;
     font-size: 16px;
+    height: 52px;
   }
   .avatarControls .input {
     padding: 12px;
     font-size: 14px;
+    height: 42px;
   }
   .uploadButton {
     font-size: 14px;
@@ -480,14 +489,13 @@
     flex-direction: row;
     gap: 32px;
     align-items: stretch;
+    justify-content: space-between;
   }
   .imageWrapper {
-    flex: 1;
-    min-width: 0;
+    width: 592px;
+    flex-shrink: 0;
   }
   .formWrapper {
-    flex: 1;
-    min-width: 0;
     padding: 60px 80px;
   }
 

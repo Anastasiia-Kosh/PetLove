@@ -328,6 +328,8 @@ export default function AddPetPage() {
                         id="species"
                         type="button"
                         className={`${css.input} ${css.speciesButton} ${
+                          !watch("species") ? css.speciesPlaceholder : ""
+                        } ${
                           errors.species && isSpeciesTouched
                             ? css.inputError
                             : watch("species")
@@ -370,9 +372,8 @@ export default function AddPetPage() {
                                   });
                                   setIsSpeciesOpen(false);
                                 }}
-                              >
-                                {species.charAt(0).toUpperCase() +
-                                  species.slice(1)}
+                                  >
+                                      {species}
                               </button>
                             </li>
                           ))}

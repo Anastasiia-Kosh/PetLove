@@ -20,7 +20,7 @@ return (
             width={335}
             height={213}
             sizes="100vw"
-            className={css.authImage}
+            className={css.image}
             loading="eager"
             fetchPriority="high"
         />

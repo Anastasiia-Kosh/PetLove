@@ -1,12 +1,11 @@
-.authImage {
+.image {
   display: block;
   width: 100%;
-  height: auto;
   border-radius: 30px;
   object-fit: cover;
 }
 @media screen and (min-width: 768px) {
-  .authImage {
+  .image {
     border-radius: 60px;
   }
 }

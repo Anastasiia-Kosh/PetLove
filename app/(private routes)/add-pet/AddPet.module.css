@@ -48,7 +48,6 @@
 .optionsList {
   display: flex;
   gap: 8px;
-  margin-bottom: 8px;
   align-items: center;
 }
 
@@ -168,6 +167,7 @@
   width: 100%;
   max-width: 117px;
 }
+
 .uploadIcon {
   width: 16px;
   height: 16px;
@@ -192,7 +192,9 @@
   letter-spacing: -0.03em;
   color: rgba(38, 38, 38, 0.8);
 }
-
+.avatarControls .input {
+  padding: 9px;
+}
 .input::placeholder {
   color: rgba(38, 38, 38, 0.5);
 }
@@ -223,6 +225,10 @@
   gap: 8px;
   justify-content: space-between;
   align-items: flex-start;
+}
+.wrapBthD_Type > .field {
+  flex: 1;
+  min-width: 0;
 }
 .birthdayInput {
   position: relative;
@@ -286,7 +292,7 @@
 }
 
 .speciesButton {
-  width: 140px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -373,6 +379,7 @@
   max-width: 100px;
   transition: background-color 0.3s ease;
 }
+
 .button:hover,
 .button:focus {
   background-color: var(--color-dark-yellow);
@@ -388,121 +395,85 @@
   .page {
     padding: 114px 0 32px;
   }
-}
-/* 
   .wrapper {
     gap: 16px;
   }
-  .imageWrapper {
-    position: relative;
-  }
-  .authImage {
-    border-radius: 60px;
-  }
-
   .formWrapper {
     border-radius: 60px;
-    padding: 71px 140px;
-  }
-  .title {
-    font-size: 54px;
-  }
-  .description {
-    font-size: 18px;
-    margin-top: 16px;
-    margin-bottom: 32px;
+    padding: 40px 136px;
   }
   .fieldsWrap {
-    gap: 16px;
+    gap: 18px;
+  }
+  .titleWrapper {
+    margin-bottom: 40px;
+  }
+  .title {
+    font-size: 32px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+  .customRadio {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  .iconRadio {
+    width: 24px;
+    height: 24px;
+  }
+  .avatarPreview {
+    width: 86px;
+    height: 86px;
+    margin-top: -37px;
+  }
+  .avatarIcon {
+    width: 33px;
+    height: 31px;
+  }
+  .avatarControls {
+    margin-top: -4px;
   }
   .input {
     padding: 16px;
     font-size: 16px;
   }
-  .passwordToggle {
-    right: 16px;
-  }
-  .fieldIcon {
-    right: 16px;
-  }
-  .passwordValidationIcon {
-    right: 50px;
-  }
-  .button {
-    padding: 16px 0;
-    margin-bottom: 16px;
-  }
-  .switchText {
+  .avatarControls .input {
+    padding: 12px;
     font-size: 14px;
-    line-height: 1.42857;
   }
-  .switchLink {
+  .uploadButton {
     font-size: 14px;
-    line-height: 1.42857;
+    gap: 8px;
+    padding: 12px 16px;
+    max-width: 146px;
+  }
+  .uploadIcon {
+    width: 18px;
+    height: 18px;
+  }
+  .speciesOption {
+    padding: 8px 0;
+    font-size: 16px;
+  }
+  .speciesDropdown {
+    max-height: 200px;
   }
   .error {
-    margin-top: -12px;
+    font-size: 14px;
   }
-
-  .card {
-    display: flex;
-    gap: 8px;
-    padding: 19px 16px;
-    border-radius: 20px;
-    background-color: var(--color-white);
-    position: absolute;
-    bottom: 32px;
-    left: 32px;
-    align-items: flex-start;
+  .buttonsWrap {
+    margin-top: 46px;
   }
-  .cardImage {
-    width: 60px;
-    height: 60px;
-    border-radius: 100%;
-    background-color: var(--color-milk);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .image {
-    width: 32px;
-    height: 32px;
-  }
-  .cardInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .cardName {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .catName {
-    font-weight: 700;
+  .button {
     font-size: 16px;
-    line-height: 1.25;
-    letter-spacing: -0.03em;
-    color: var(--color-yellow);
+    padding: 14px 0;
+    max-width: 170px;
   }
-  .catBrthd {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.16667;
-    letter-spacing: -0.02em;
-  }
-  .catBrthd_accent {
-    color: rgba(38, 38, 38, 0.5);
-  }
-  .catDescr {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.16667;
-    letter-spacing: -0.02em;
-    color: rgba(38, 38, 38, 0.8);
-    max-width: 194px;
-  } */
-/* }
+}
+
 @media screen and (min-width: 1280px) {
   .wrapper {
     display: flex;
@@ -511,30 +482,16 @@
     align-items: stretch;
   }
   .imageWrapper {
-    display: flex;
-  }
-
-  .authPicture {
-    display: block;
-    width: 592px;
-    height: 100%;
-  }
-  .authImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    flex: 1;
+    min-width: 0;
   }
   .formWrapper {
-    padding: 118px 84px;
+    flex: 1;
+    min-width: 0;
+    padding: 60px 80px;
   }
 
-  .button {
-    padding: 18px 0;
-    margin-top: 32px;
+  .buttonsWrap {
+    margin-top: 40px;
   }
-
-  .card {
-    bottom: 97px;
-    left: 61px;
-  }
-} */
+}

@@ -50,7 +50,7 @@ export default function AddPetPage() {
     setValue,
     trigger,
     watch,
-    formState: { errors, touchedFields },
+    formState: { errors },
   } = useForm<AddPetForm>({
     resolver: yupResolver(schema),
     mode: "onTouched",

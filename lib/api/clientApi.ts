@@ -4,6 +4,7 @@ import type { NewsResponse } from "@/types/news";
 import type { Friend } from "@/types/friends";
 import type { NoticesResponce,  NoticeDetails } from "@/types/notice";
 import type { City } from "@/types/city";
+import type { Pet } from "@/types/pet";
 
 export interface RegisterRequest {
   name: string;
@@ -167,6 +168,31 @@ export const addNoticeToFavorites = async (id: string) => {
 export const removeNoticeFromFavorites = async (id: string) => {
   const { data } = await apiInstance.delete<string[]>(
     `/notices/favorites/remove/${id}`,
+  );
+
+  return data;
+};
+
+export interface AddPetRequest {
+  name: string;
+  title: string;
+  imgURL: string;
+  species: string;
+  birthday: string;
+  sex: string;
+}
+export const addPet = async (petData: AddPetRequest) => {
+  const { data } = await apiInstance.post<Pet>(
+    "/users/current/pets/add",
+    petData,
+  );
+
+  return data;
+};
+
+export const removePet = async (petId: string) => {
+  const { data } = await apiInstance.delete(
+    `/users/current/pets/remove/${petId}`,
   );
 
   return data;

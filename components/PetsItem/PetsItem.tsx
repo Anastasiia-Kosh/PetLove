@@ -2,21 +2,40 @@ import { Pet } from "@/types/pet";
 import css from "./PetsItem.module.css";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
+import { currentUserFullInfo, removePet } from "@/lib/api/clientApi";
+import { setUser } from "@/lib/store/authStore";
+import { useAppDispatch } from "@/lib/store/hooks";
+import toast from "react-hot-toast";
 
 interface PetsItemProps {
   pet: Pet;
 }
 
 export default function PetsItem({ pet }: PetsItemProps) {
+  const dispatch = useAppDispatch();
+
+  const handleRemovePet = async () => {
+    try {
+      await removePet(pet._id);
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Authentication token not found");
+      }
+
+      const updatedUser = await currentUserFullInfo(token);
+      dispatch(setUser(updatedUser));
+      toast.success("Successed to remove pet");
+    } catch {
+      toast.error("Failed to remove pet");
+    }
+  };
+
   const formattedDate = pet.birthday
     ? new Date(pet.birthday.replace(/([+-]\d{2})(\d{2})$/, "$1:$2"))
         .toLocaleDateString("en-GB")
         .replaceAll("/", ".")
     : "Unknown";
-
-  const handleRemovePet = async () => {
-    // запит на видалення
-  };
 
   return (
     <article className={css.card}>

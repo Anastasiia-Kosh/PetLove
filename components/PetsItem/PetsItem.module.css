@@ -7,9 +7,9 @@
 }
 .photoWrapper {
   position: relative;
-  width: 100%;
   overflow: hidden;
   border-radius: 100px;
+  width: 66px;
   height: 66px;
 }
 .photo {

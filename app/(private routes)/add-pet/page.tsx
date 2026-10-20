@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Icon from "@/components/Icon/Icon";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { uploadPetImage } from "@/lib/cloudinary/cloudinary";
 import { addPet } from "@/lib/api/clientApi";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import PetBlock from "@/components/PetBlock/PetBlock";
+import { getNoticeSpecies } from "@/lib/api/clientApi";
 
 interface AddPetForm {
   name: string;
@@ -27,7 +29,7 @@ const schema = yup
     name: yup.string().required("Name is required"),
     imgURL: yup
       .string()
-      .required("Photo is required")
+      .required("Photo is required. Click please Upload photo.")
       .matches(
         /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
         "Enter a valid image URL",
@@ -45,14 +47,93 @@ export default function AddPetPage() {
   const {
     register,
     handleSubmit,
+    setValue,
+    trigger,
+    watch,
     formState: { errors, touchedFields },
   } = useForm<AddPetForm>({
     resolver: yupResolver(schema),
     mode: "onTouched",
   });
   const router = useRouter();
+  const titleValue = watch("title");
+  const nameValue = watch("name");
+  const imgURLValue = watch("imgURL");
 
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
+  const [isSpeciesTouched, setIsSpeciesTouched] = useState(false);
+  const [speciesOptions, setSpeciesOptions] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const fetchSpecies = async () => {
+      try {
+        const species = await getNoticeSpecies();
+        setSpeciesOptions(species);
+      } catch {
+        toast.error("Failed to load pet types.");
+      }
+    };
+
+    fetchSpecies();
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (avatarPreview?.startsWith("blob:")) {
+        URL.revokeObjectURL(avatarPreview);
+      }
+    };
+  }, [avatarPreview]);
+
+  const handlePhotoChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    const maxSize = 5 * 1024 * 1024;
+
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Choose a JPG, PNG or WEBP image.");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > maxSize) {
+      toast.error("Image size must not exceed 5 MB.");
+      event.target.value = "";
+      return;
+    }
+
+    const previewUrl = URL.createObjectURL(file);
+    setAvatarPreview(previewUrl);
+    setIsUploading(true);
+
+    try {
+      const imageUrl = await uploadPetImage(file);
+
+      setValue("imgURL", imageUrl, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+
+      toast.success("Photo uploaded successfully!");
+    } catch (error) {
+      setAvatarPreview(null);
+      toast.error(
+        error instanceof Error ? error.message : "Image upload failed.",
+      );
+    } finally {
+      setIsUploading(false);
+      event.target.value = "";
+    }
+  };
 
   const onSubmit = async (data: AddPetForm) => {
     try {
@@ -77,7 +158,6 @@ export default function AddPetPage() {
           <div className={css.imageWrapper}>
             <PetBlock />
           </div>
-
           <div className={css.formWrapper}>
             <div className={css.titleWrapper}>
               <h1 className={css.title}>Add my pet / </h1>
@@ -117,9 +197,57 @@ export default function AddPetPage() {
                 </div>
 
                 <div className={css.avatarWrap}>
-                  {/* Тут буде місце прев'ю фото,що спочатку є іконкою */}
-                  {/* Поле Enter URL */}
-                  {/* Кнопка Upload  photo */}
+                  <div className={css.avatarPreview}>
+                    {avatarPreview ? (
+                      <Image
+                        src={avatarPreview}
+                        alt="Pet photo preview"
+                        width={68}
+                        height={68}
+                        unoptimized
+                      />
+                    ) : (
+                      <Icon name="pet-avatar" className={css.avatarIcon} />
+                    )}
+                  </div>
+
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    ref={fileInputRef}
+                    onChange={handlePhotoChange}
+                    hidden
+                  />
+
+                  <div className={css.avatarControls}>
+                    <input
+                      type="text"
+                      {...register("imgURL")}
+                      placeholder="Enter URL"
+                      className={`${css.input} ${
+                        errors.imgURL
+                          ? css.inputError
+                          : imgURLValue
+                            ? css.inputValid
+                            : ""
+                      }`}
+                      readOnly
+                    />
+
+                    <button
+                      type="button"
+                      className={css.uploadButton}
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isUploading}
+                    >
+                      {isUploading ? "Uploading..." : "Upload photo"}
+                      <Icon name="cloud" className={css.uploadIcon} />
+                    </button>
+                  </div>
+
+                  {errors.imgURL && (
+                    <p className={css.error}>{errors.imgURL.message}</p>
+                  )}
                 </div>
                 <div className={css.field}>
                   <label htmlFor="title" className="visually-hidden">
@@ -130,7 +258,13 @@ export default function AddPetPage() {
                     type="text"
                     {...register("title")}
                     placeholder="Title"
-                    className={css.input}
+                    className={`${css.input} ${
+                      errors.title
+                        ? css.inputError
+                        : titleValue?.trim()
+                          ? css.inputValid
+                          : ""
+                    }`}
                   />
                   {errors.title && (
                     <p className={css.error}>{errors.title.message}</p>
@@ -144,15 +278,111 @@ export default function AddPetPage() {
                     id="name"
                     type="text"
                     {...register("name")}
-                    placeholder="Name"
-                    className={css.input}
+                    placeholder="Pet’s Name"
+                    className={`${css.input} ${
+                      errors.name
+                        ? css.inputError
+                        : nameValue?.trim()
+                          ? css.inputValid
+                          : ""
+                    }`}
                   />
                   {errors.name && (
                     <p className={css.error}>{errors.name.message}</p>
                   )}
                 </div>
-                {/* Тут буде інпут з відкриваючимся календарем, для birthday  */}
-                {/* Тут буде Type of pet з випадаючим списком */}
+                <div className={css.wrapBthD_Type}>
+                  <div className={css.field}>
+                    <label htmlFor="birthday" className={css.dateLabel}>
+                      {!watch("birthday") && (
+                        <span className={css.datePlaceholder}>00.00.0000</span>
+                      )}
+
+                      <input
+                        id="birthday"
+                        type="date"
+                        {...register("birthday")}
+                        className={`${css.input} ${css.dateInput} ${
+                          errors.birthday
+                            ? css.inputError
+                            : watch("birthday")
+                              ? css.inputValid
+                              : ""
+                        } ${!watch("birthday") ? css.dateEmpty : ""}`}
+                      />
+
+                      <Icon name="calendar" className={css.calendarIcon} />
+                    </label>
+
+                    {errors.birthday && (
+                      <p className={css.error}>{errors.birthday.message}</p>
+                    )}
+                  </div>
+                  <div className={css.field}>
+                    <label htmlFor="species" className="visually-hidden">
+                      Type of pet
+                    </label>
+
+                    <div className={css.speciesSelect}>
+                      <button
+                        id="species"
+                        type="button"
+                        className={`${css.input} ${css.speciesButton} ${
+                          errors.species && isSpeciesTouched
+                            ? css.inputError
+                            : watch("species")
+                              ? css.inputValid
+                              : ""
+                        }`}
+                        onClick={() => {
+                          if (isSpeciesOpen) {
+                            setIsSpeciesTouched(true);
+                            trigger("species");
+                          }
+
+                          setIsSpeciesOpen((prev) => !prev);
+                        }}
+                        aria-expanded={isSpeciesOpen}
+                      >
+                        <span>{watch("species") || "Type of pet"}</span>
+                        <Icon
+                          name="chevron-down"
+                          className={`${css.speciesArrow} ${
+                            isSpeciesOpen ? css.speciesArrowOpen : ""
+                          }`}
+                        />
+                      </button>
+                      {errors.species && (
+                        <p className={css.error}>{errors.species.message}</p>
+                      )}
+                      {isSpeciesOpen && (
+                        <ul className={css.speciesDropdown}>
+                          {speciesOptions.map((species) => (
+                            <li key={species}>
+                              <button
+                                type="button"
+                                className={css.speciesOption}
+                                onClick={() => {
+                                  setValue("species", species, {
+                                    shouldValidate: true,
+                                    shouldDirty: true,
+                                    shouldTouch: true,
+                                  });
+                                  setIsSpeciesOpen(false);
+                                }}
+                              >
+                                {species.charAt(0).toUpperCase() +
+                                  species.slice(1)}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+
+                  <input type="hidden" {...register("species")} />
+                </div>
               </div>
               <div className={css.buttonsWrap}>
                 <button

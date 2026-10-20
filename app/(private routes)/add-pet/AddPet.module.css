@@ -115,6 +115,70 @@
   stroke: var(--color-white);
   fill: var(--color-white);
 }
+
+.avatarWrap {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+}
+
+.avatarPreview {
+  width: 68px;
+  height: 68px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--color-milk);
+  margin: 0 auto;
+}
+
+.avatarPreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarIcon {
+  width: 26px;
+  height: 24px;
+  fill: var(--color-yellow);
+}
+
+.avatarControls {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.uploadButton {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  border-radius: 30px;
+  padding: 10px;
+  background-color: var(--color-milk);
+  width: 100%;
+  max-width: 117px;
+}
+.uploadIcon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-yellow);
+  fill: none;
+}
+.uploadButton:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
 .field {
   position: relative;
 }
@@ -136,6 +200,17 @@
 .input:focus {
   border: 1px solid var(--color-yellow);
 }
+.input.inputValid {
+  border-color: var(--color-yellow);
+}
+
+.input.inputError {
+  border-color: var(--color-red);
+}
+.input.inputError:hover,
+.input.inputError:focus {
+  border-color: var(--color-red);
+}
 .error {
   font-weight: 500;
   font-size: 12px;
@@ -143,7 +218,143 @@
   letter-spacing: -0.03em;
   color: var(--color-red);
 }
+.wrapBthD_Type {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.birthdayInput {
+  position: relative;
+  cursor: pointer;
+}
 
+.birthdayInput::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+.dateLabel {
+  position: relative;
+  display: block;
+}
+
+.dateInput {
+  width: 100%;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.dateInput.dateEmpty {
+  color: transparent;
+}
+
+.datePlaceholder {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.calendarIcon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  fill: none;
+  stroke: var(--color-black);
+  width: 18px;
+  height: 18px;
+}
+.speciesSelect {
+  position: relative;
+  width: 100%;
+}
+
+.speciesButton {
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.speciesArrow {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: var(--color-black);
+  transition: transform 200ms ease;
+}
+
+.speciesArrowOpen {
+  transform: rotate(180deg);
+}
+
+.speciesDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  max-height: 80px;
+  overflow-y: auto;
+  padding: 12px;
+  border-radius: 15px;
+  background-color: var(--color-white, #fff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.speciesOption {
+  width: 100%;
+  padding: 3px 0;
+  text-align: left;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.6);
+  cursor: pointer;
+}
+
+.speciesOption:hover,
+.speciesOption:focus-visible {
+  color: var(--color-yellow);
+}
+
+.speciesDropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.speciesDropdown::-webkit-scrollbar-thumb {
+  border-radius: 13px;
+  width: 6px;
+  height: 61px;
+  background-color: rgba(38, 38, 38, 0.08);
+}
+
+.speciesDropdown::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 .buttonsWrap {
   display: flex;
   gap: 8px;

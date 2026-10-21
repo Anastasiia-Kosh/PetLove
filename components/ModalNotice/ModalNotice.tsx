@@ -2,9 +2,10 @@
 
 import type { NoticeDetails } from "@/types/notice";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { updateFavorites } from "@/lib/store/authStore";
+import { setUser, updateFavorites } from "@/lib/store/authStore";
 import {
   addNoticeToFavorites,
+  currentUserFullInfo,
   removeNoticeFromFavorites,
 } from "@/lib/api/clientApi";
 import Modal from "../Modal/Modal";
@@ -27,22 +28,35 @@ export default function ModalNotice({ onClose, notice }: ModalNoticeProps) {
   );
   const [showContacts, setShowContacts] = useState(false);
 
-  const handleFavoriteClick = async () => {
-    try {
-      const favorites = isFavorite
-        ? await removeNoticeFromFavorites(notice._id)
-        : await addNoticeToFavorites(notice._id);
+const handleFavoriteClick = async () => {
+  try {
+    const favorites = isFavorite
+      ? await removeNoticeFromFavorites(notice._id)
+      : await addNoticeToFavorites(notice._id);
 
-      dispatch(updateFavorites(favorites));
-      if (isFavorite) {
-        toast.success("Removed from favorites");
-      } else {
-        toast.success("Added to favorites");
-      }
-    } catch {
-      toast.error("Failed to update favorites");
+    dispatch(updateFavorites(favorites));
+
+    if (isFavorite) {
+      toast.success("Removed from favorites");
+    } else {
+      toast.success("Added to favorites");
     }
-  };
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const updatedUser = await currentUserFullInfo(token);
+        dispatch(setUser(updatedUser));
+      } catch (error) {
+        console.error("Failed to refresh user profile:", error);
+        toast.error("Favorites changed, but profile could not be refreshed");
+      }
+    }
+  } catch {
+    toast.error("Failed to update favorites");
+  }
+};
 
   const formattedDate = notice.birthday
     ? new Date(notice.birthday.replace(/([+-]\d{2})(\d{2})$/, "$1:$2"))

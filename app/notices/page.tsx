@@ -8,6 +8,7 @@ import NoticesList from "@/components/NoticesList/NoticesList";
 import type { SortBy } from "@/types/filters";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "@/components/Pagination/Pagination";
+import toast from "react-hot-toast";
 
 export default function NoticesPage() {
   const searchParams = useSearchParams();
@@ -89,29 +90,33 @@ export default function NoticesPage() {
 
   useEffect(() => {
     const fetchNotices = async () => {
-      const data = await getNotices({
-        keyword: keyword || undefined,
-        category: selectedCategory ?? undefined,
-        sex: selectedSex ?? undefined,
-        species: selectedSpecies ?? undefined,
-        byPopularity:
-          sortBy === "popular"
-            ? false
-            : sortBy === "unpopular"
-              ? true
-              : undefined,
-        byPrice:
-          sortBy === "expensive"
-            ? false
-            : sortBy === "cheap"
-              ? true
-              : undefined,
-        locationId: selectedLocation || undefined,
-        page: currentPage,
-      });
+      try {
+        const data = await getNotices({
+          keyword: keyword || undefined,
+          category: selectedCategory ?? undefined,
+          sex: selectedSex ?? undefined,
+          species: selectedSpecies ?? undefined,
+          byPopularity:
+            sortBy === "popular"
+              ? false
+              : sortBy === "unpopular"
+                ? true
+                : undefined,
+          byPrice:
+            sortBy === "expensive"
+              ? false
+              : sortBy === "cheap"
+                ? true
+                : undefined,
+          locationId: selectedLocation || undefined,
+          page: currentPage,
+        });
 
-      setNotices(data.results);
-      setTotalPages(data.totalPages);
+        setNotices(data.results);
+        setTotalPages(data.totalPages);
+      } catch {
+   toast.error("Failed to load the notices. Please try again.");
+      }
     };
 
     fetchNotices();

@@ -6,15 +6,17 @@ import Icon from "../Icon/Icon";
 import { useState } from "react";
 import ModalAttention from "../ModalAttention/ModalAttention";
 import { useAppSelector, useAppDispatch } from "@/lib/store/hooks";
-import { updateFavorites } from "@/lib/store/authStore";
+import { setUser, updateFavorites } from "@/lib/store/authStore";
 import ModalNotice from "../ModalNotice/ModalNotice";
 import {
   addNoticeToFavorites,
   removeNoticeFromFavorites,
   getNoticeById,
+  currentUserFullInfo,
 } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
 import ModalCongrats from "../ModalCongrats/ModalCongrats";
+
 
 interface NoticesItemProps {
   notice: NoticeItem;
@@ -44,45 +46,73 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
         .replaceAll("/", ".")
     : "Unknown";
 
-  const handleLearnMore = async () => {
-    if (!isLoggedIn) {
-      setOpenModalAttention(true);
-      return;
-    }
+const handleLearnMore = async () => {
+  if (!isLoggedIn) {
+    setOpenModalAttention(true);
+    return;
+  }
+  try {
+    const data = await getNoticeById(notice._id);
 
-    try {
-      const data = await getNoticeById(notice._id);
-      setSelectedNotice(data);
-      setOpenModalNotice(true);
-    } catch (error) {
-      console.error("Failed to fetch notice details:", error);
-    }
-  };
+    setSelectedNotice(data);
+    setOpenModalNotice(true);
 
-  const handleFavoriteClick = async () => {
-    if (!isLoggedIn) {
-      setOpenModalAttention(true);
-      return;
-    }
-    const isFirstFavorite = !isFavorite && favoriteNoticeIds.length === 0;
-    try {
-      const favorites = isFavorite
-        ? await removeNoticeFromFavorites(notice._id)
-        : await addNoticeToFavorites(notice._id);
+    const token = localStorage.getItem("token");
 
-      dispatch(updateFavorites(favorites));
-      if (isFirstFavorite) {
-        setOpenModalCongrats(true);
+    if (token) {
+      try {
+        const updatedUser = await currentUserFullInfo(token);
+        dispatch(setUser(updatedUser));
+      } catch (error) {
+        console.error("Failed to refresh user profile:", error);
       }
-      if (isFavorite) {
-        toast.success("Removed from favorites");
-      } else {
-        toast.success("Added to favorites");
-      }
-    } catch {
-      toast.error("Failed to update favorites");
     }
-  };
+  } catch (error) {
+    console.error("Failed to fetch notice details:", error);
+    toast.error("Failed to load notice details");
+  }
+};
+
+const handleFavoriteClick = async () => {
+  if (!isLoggedIn) {
+    setOpenModalAttention(true);
+    return;
+  }
+
+  const isFirstFavorite = !isFavorite && favoriteNoticeIds.length === 0;
+
+  try {
+    const favorites = isFavorite
+      ? await removeNoticeFromFavorites(notice._id)
+      : await addNoticeToFavorites(notice._id);
+
+    dispatch(updateFavorites(favorites));
+
+    if (isFirstFavorite) {
+      setOpenModalCongrats(true);
+    }
+
+    if (isFavorite) {
+      toast.success("Removed from favorites");
+    } else {
+      toast.success("Added to favorites");
+    }
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const updatedUser = await currentUserFullInfo(token);
+        dispatch(setUser(updatedUser));
+      } catch (error) {
+        console.error("Failed to refresh user profile:", error);
+        toast.error("Favorites changed, but profile could not be refreshed");
+      }
+    }
+  } catch {
+    toast.error("Failed to update favorites");
+  }
+};
 
   return (
     <article className={css.card}>

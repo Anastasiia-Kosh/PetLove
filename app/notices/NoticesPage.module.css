@@ -9,6 +9,7 @@
   letter-spacing: -0.03em;
   margin-bottom: 40px;
 }
+
 @media screen and (min-width: 768px) {
   .page {
     padding-top: 167px;

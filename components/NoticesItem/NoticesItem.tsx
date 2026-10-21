@@ -14,6 +14,7 @@ import {
   getNoticeById,
 } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
+import ModalCongrats from "../ModalCongrats/ModalCongrats";
 
 interface NoticesItemProps {
   notice: NoticeItem;
@@ -26,9 +27,13 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
   const isFavorite = useAppSelector((state) =>
     state.auth.favoriteNoticeIds.includes(notice._id),
   );
+  const favoriteNoticeIds = useAppSelector(
+    (state) => state.auth.favoriteNoticeIds,
+  );
 
   const [openModalAttention, setOpenModalAttention] = useState(false);
   const [openModalNotice, setOpenModalNotice] = useState(false);
+  const [openModalCongrats, setOpenModalCongrats] = useState(false);
   const [selectedNotice, setSelectedNotice] = useState<NoticeDetails | null>(
     null,
   );
@@ -59,12 +64,16 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
       setOpenModalAttention(true);
       return;
     }
+    const isFirstFavorite = !isFavorite && favoriteNoticeIds.length === 0;
     try {
       const favorites = isFavorite
         ? await removeNoticeFromFavorites(notice._id)
         : await addNoticeToFavorites(notice._id);
 
       dispatch(updateFavorites(favorites));
+      if (isFirstFavorite) {
+        setOpenModalCongrats(true);
+      }
       if (isFavorite) {
         toast.success("Removed from favorites");
       } else {
@@ -138,14 +147,16 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
           </button>
 
           <button
-            type="button"
-            className={`${css.buttonHeart} ${
-              isFavorite ? css.buttonHeartActive : ""
-            }`}
-            onClick={handleFavoriteClick}
-          >
-            <Icon name="heart" className={css.heart} />
-          </button>
+  type="button"
+  className={css.buttonHeart}
+  onClick={handleFavoriteClick}
+  aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+>
+  <Icon
+    name={isFavorite ? "trash" : "heart"}
+    className={css.heart}
+  />
+</button>
         </div>
       </div>
       {openModalAttention && (
@@ -156,6 +167,9 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
           onClose={() => setOpenModalNotice(false)}
           notice={selectedNotice}
         />
+      )}
+      {openModalCongrats && (
+        <ModalCongrats onClose={() => setOpenModalCongrats(false)} />
       )}
     </article>
   );

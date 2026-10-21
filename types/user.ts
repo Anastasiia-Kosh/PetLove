@@ -1,4 +1,4 @@
-import type { NoticeFavorites, NoticeViewed } from "./notice";
+import type { NoticeItem } from "./notice";
 import type { Pet } from "./pet";
 
 export interface User {
@@ -13,7 +13,7 @@ export interface CurrentResponse {
   name: string;
   email: string;
   token: string;
-  noticesFavorites: NoticeFavorites[];
+  noticesFavorites: NoticeItem[];
 }
 
 export interface CurrentFullResponse {
@@ -23,8 +23,8 @@ export interface CurrentFullResponse {
   avatar: string;
   phone: string;
   token: string;
-  noticesViewed: NoticeViewed[];
-  noticesFavorites: NoticeFavorites[];
+  noticesViewed: NoticeItem[];
+  noticesFavorites: NoticeItem[];
   pets: Pet[];
   createdAt: string;
   updatedAt: string;

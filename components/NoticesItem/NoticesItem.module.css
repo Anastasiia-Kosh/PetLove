@@ -139,9 +139,7 @@
 .buttonHeart:hover {
   background-color: var(--color-dark-milk);
 }
-.buttonHeartActive {
-  background-color: var(--color-dark-milk);
-}
+
 @media screen and (min-width: 768px) {
   .title {
     font-size: 18px;

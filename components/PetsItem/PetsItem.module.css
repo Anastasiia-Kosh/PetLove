@@ -4,6 +4,7 @@
   padding: 12px 46px 12px 12px;
   display: flex;
   gap: 14px;
+  position: relative;
 }
 .photoWrapper {
   position: relative;
@@ -11,6 +12,7 @@
   border-radius: 100px;
   width: 66px;
   height: 66px;
+  flex-shrink: 0;
 }
 .photo {
   object-fit: cover;
@@ -32,7 +34,7 @@
 }
 .features {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -68,6 +70,9 @@
   width: 100%;
   max-width: 30px;
   height: 30px;
+  position: absolute;
+  top: 12px;
+  right: 12px;
 }
 .trash {
   width: 16px;

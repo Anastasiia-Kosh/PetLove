@@ -13,6 +13,9 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import PetBlock from "@/components/PetBlock/PetBlock";
 import { getNoticeSpecies } from "@/lib/api/clientApi";
+import { useAppDispatch } from "@/lib/store/hooks";
+import { setUser } from "@/lib/store/authStore";
+import { currentUserFullInfo } from "@/lib/api/clientApi";
 
 interface AddPetForm {
   name: string;
@@ -44,6 +47,7 @@ const schema = yup
   .required();
 
 export default function AddPetPage() {
+    const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -137,7 +141,13 @@ export default function AddPetPage() {
 
   const onSubmit = async (data: AddPetForm) => {
     try {
-      const pet = await addPet(data);
+        await addPet(data);
+        const token = localStorage.getItem("token");
+
+if (token) {
+  const updatedUser = await currentUserFullInfo(token);
+  dispatch(setUser(updatedUser));
+}
       toast.success(`The animal has been added successfully!`);
       router.push("/profile");
     } catch (error) {

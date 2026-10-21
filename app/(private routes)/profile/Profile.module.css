@@ -57,6 +57,11 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.formTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+}
 .addBtn {
   display: flex;
   gap: 4px;
@@ -95,4 +100,76 @@
 }
 .logoutBtn:hover {
   background-color: var(--color-dark-milk);
+}
+.buttonWrap {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  display: flex;
+  gap: 10px;
+  margin: 40px 0 20px;
+}
+.buttonFav {
+  border-radius: 30px;
+  padding: 12px;
+  background-color: var(--color-white);
+}
+.buttonView {
+  border-radius: 30px;
+  padding: 12px 39px;
+  background-color: var(--color-white);
+}
+.active {
+  color: var(--color-white);
+  background-color: var(--color-yellow);
+}
+
+@media screen and (min-width: 768px) {
+  .page {
+    padding-top: 114px;
+    padding-bottom: 60px;
+  }
+  .mainWhiteWrap {
+    border-radius: 60px;
+    padding: 40px;
+  }
+  .formTitle {
+    font-size: 18px;
+  }
+  .addBtn {
+    font-size: 16px;
+    border-radius: 30px;
+    padding: 10px 20px;
+  }
+
+  .logoutBtn {
+    padding: 15px 35px;
+    border-radius: 30px;
+    font-size: 16px;
+    width: 136px;
+  }
+  .buttonWrap {
+    font-size: 16px;
+    gap: 8px;
+    margin: 32px 0 20px;
+  }
+  .buttonFav {
+    padding: 14px;
+  }
+  .buttonView {
+    padding: 14px 45px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .descWrap {
+    display: flex;
+    gap: 32px;
+  }
+  .mainWhiteWrap {
+    flex-shrink: 0;
+  }
+  .noticesWrap {
+    width: 100%;
+  }
 }

@@ -1,0 +1,84 @@
+.modalCongrats {
+  padding: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 90%;
+}
+.modalClose {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+.icon_close {
+  width: 24px;
+  height: 24px;
+}
+.modalClose svg {
+  stroke: var(--color-black);
+}
+.imageWrap {
+  width: 80px;
+  height: 80px;
+  background-color: var(--color-milk);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modalTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-yellow);
+}
+.modalText {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.button {
+  display: block;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  padding: 12px;
+  border-radius: 30px;
+  text-align: center;
+  color: var(--color-white);
+  background-color: var(--color-yellow);
+  width: 100%;
+  margin-top: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.button:focus,
+.button:hover {
+  background-color: var(--color-dark-yellow);
+}
+
+@media screen and (min-width: 768px) {
+  .modalTitle {
+    font-size: 24px;
+  }
+  .button {
+    font-size: 16px;
+    padding: 14px;
+    margin-top: 8px;
+  }
+}

@@ -69,6 +69,7 @@ export default function AddPetPage() {
   const [isSpeciesOpen, setIsSpeciesOpen] = useState(false);
   const [isSpeciesTouched, setIsSpeciesTouched] = useState(false);
   const [speciesOptions, setSpeciesOptions] = useState<string[]>([]);
+  
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

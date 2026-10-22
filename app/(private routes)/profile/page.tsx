@@ -8,11 +8,12 @@ import { useAppSelector } from "@/lib/store/hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MyNotices from "@/components/MyNotices/MyNotices";
+import ModalEditUser from "@/components/ModalEditUser/ModalEditUser";
 
 export default function ProfilePage() {
   const router = useRouter();
   const user = useAppSelector((state) => state.auth.user);
-
+  const [openModalEditUser, setOpenModalEditUser] = useState(false);
   const [activeTab, setActiveTab] = useState<"favorites" | "viewed">(
     "favorites",
   );
@@ -30,10 +31,19 @@ export default function ProfilePage() {
               <p className={css.userDecor}>
                 User <Icon name="user" className={css.iconUser} />
               </p>
-              <button className={css.editBtn}>
+              <button
+                className={css.editBtn}
+                onClick={() => {
+                  setOpenModalEditUser(true);
+                }}
+              >
                 <Icon name="edit" className={css.iconEdit} />
               </button>
             </div>
+
+            {openModalEditUser && (
+              <ModalEditUser onClose={() => setOpenModalEditUser(false)} />
+            )}
 
             <UserBlock />
 

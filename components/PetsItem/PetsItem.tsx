@@ -17,18 +17,25 @@ export default function PetsItem({ pet }: PetsItemProps) {
   const handleRemovePet = async () => {
     try {
       await removePet(pet._id);
-
-      const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("Authentication token not found");
-      }
-
-      const updatedUser = await currentUserFullInfo(token);
-      dispatch(setUser(updatedUser));
-      toast.success("Successed to remove pet");
     } catch {
-      toast.error("Failed to remove pet");
+      toast.error("Failed to remove pet.");
+      return;
     }
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const updatedUser = await currentUserFullInfo(token);
+        dispatch(setUser(updatedUser));
+      } catch {
+        toast.error(
+          "Pet removed successfully, but the profile could not be refreshed.",
+        );
+      }
+    }
+
+    toast.success("Pet removed successfully.");
   };
 
   const formattedDate = pet.birthday

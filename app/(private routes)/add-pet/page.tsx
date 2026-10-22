@@ -47,7 +47,7 @@ const schema = yup
   .required();
 
 export default function AddPetPage() {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
@@ -141,24 +141,35 @@ export default function AddPetPage() {
 
   const onSubmit = async (data: AddPetForm) => {
     try {
-        await addPet(data);
-        const token = localStorage.getItem("token");
-
-if (token) {
-  const updatedUser = await currentUserFullInfo(token);
-  dispatch(setUser(updatedUser));
-}
-      toast.success(`The animal has been added successfully!`);
-      router.push("/profile");
+      await addPet(data);
     } catch (error) {
       if (axios.isAxiosError<{ message?: string }>(error)) {
         toast.error(
-          error.response?.data?.message ?? "Add pet failed. Please try again.",
+          error.response?.data?.message ??
+            "Failed to add pet. Please try again.",
         );
       } else {
-        toast.error("Something went wrong. Please try again.");
+        toast.error("Something went wrong while adding the pet.");
+      }
+
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      try {
+        const updatedUser = await currentUserFullInfo(token);
+        dispatch(setUser(updatedUser));
+      } catch {
+        toast.error(
+          "Pet added successfully, but the profile could not be refreshed.",
+        );
       }
     }
+
+    toast.success("Pet added successfully!");
+    router.push("/profile");
   };
 
   return (
@@ -382,8 +393,8 @@ if (token) {
                                   });
                                   setIsSpeciesOpen(false);
                                 }}
-                                  >
-                                      {species}
+                              >
+                                {species}
                               </button>
                             </li>
                           ))}

@@ -143,14 +143,19 @@ export default function Location({
       setOptions([]);
       return;
     }
-    const cities: City[] = await getCities(value.trim());
-    setOptions(
-      cities.map((city) => ({
-        value: city._id,
-        label: `${city.stateEn}, ${city.cityEn}`,
-        cityName: city.cityEn,
-      })),
-    );
+    try {
+      const cities: City[] = await getCities(value.trim());
+      setOptions(
+        cities.map((city) => ({
+          value: city._id,
+          label: `${city.stateEn}, ${city.cityEn}`,
+          cityName: city.cityEn,
+        })),
+      );
+    } catch {
+      setOptions([]);
+      toast.error("Failed to search cities. Please try again.");
+    }
   };
 
   const handleChange = (option: LocationOption | null) => {
@@ -198,8 +203,8 @@ export default function Location({
       try {
         const cities = await getCitiesLocations();
         setCityLocations(cities);
-      } catch (error) {
-        console.error("Failed to load city locations:", error);
+      } catch  {
+        toast.error("Failed to load available cities.");
       }
     };
 

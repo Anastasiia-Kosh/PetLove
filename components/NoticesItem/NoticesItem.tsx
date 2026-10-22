@@ -17,7 +17,6 @@ import {
 import toast from "react-hot-toast";
 import ModalCongrats from "../ModalCongrats/ModalCongrats";
 
-
 interface NoticesItemProps {
   notice: NoticeItem;
 }
@@ -46,73 +45,72 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
         .replaceAll("/", ".")
     : "Unknown";
 
-const handleLearnMore = async () => {
-  if (!isLoggedIn) {
-    setOpenModalAttention(true);
-    return;
-  }
-  try {
-    const data = await getNoticeById(notice._id);
+  const handleLearnMore = async () => {
+    if (!isLoggedIn) {
+      setOpenModalAttention(true);
+      return;
+    }
+    try {
+      const data = await getNoticeById(notice._id);
 
-    setSelectedNotice(data);
-    setOpenModalNotice(true);
+      setSelectedNotice(data);
+      setOpenModalNotice(true);
 
-    const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
-    if (token) {
-      try {
-        const updatedUser = await currentUserFullInfo(token);
-        dispatch(setUser(updatedUser));
-      } catch (error) {
-        console.error("Failed to refresh user profile:", error);
+      if (token) {
+        try {
+          const updatedUser = await currentUserFullInfo(token);
+          dispatch(setUser(updatedUser));
+        } catch {
+          toast.error("Notice loaded, but the profile could not be refreshed.");
+        }
       }
+    } catch {
+      toast.error("Failed to load notice details");
     }
-  } catch (error) {
-    console.error("Failed to fetch notice details:", error);
-    toast.error("Failed to load notice details");
-  }
-};
+  };
 
-const handleFavoriteClick = async () => {
-  if (!isLoggedIn) {
-    setOpenModalAttention(true);
-    return;
-  }
-
-  const isFirstFavorite = !isFavorite && favoriteNoticeIds.length === 0;
-
-  try {
-    const favorites = isFavorite
-      ? await removeNoticeFromFavorites(notice._id)
-      : await addNoticeToFavorites(notice._id);
-
-    dispatch(updateFavorites(favorites));
-
-    if (isFirstFavorite) {
-      setOpenModalCongrats(true);
+  const handleFavoriteClick = async () => {
+    if (!isLoggedIn) {
+      setOpenModalAttention(true);
+      return;
     }
 
-    if (isFavorite) {
-      toast.success("Removed from favorites");
-    } else {
-      toast.success("Added to favorites");
-    }
+    const isFirstFavorite = !isFavorite && favoriteNoticeIds.length === 0;
 
-    const token = localStorage.getItem("token");
+    try {
+      const favorites = isFavorite
+        ? await removeNoticeFromFavorites(notice._id)
+        : await addNoticeToFavorites(notice._id);
 
-    if (token) {
-      try {
-        const updatedUser = await currentUserFullInfo(token);
-        dispatch(setUser(updatedUser));
-      } catch (error) {
-        console.error("Failed to refresh user profile:", error);
-        toast.error("Favorites changed, but profile could not be refreshed");
+      dispatch(updateFavorites(favorites));
+
+      if (isFirstFavorite) {
+        setOpenModalCongrats(true);
       }
+
+      if (isFavorite) {
+        toast.success("Removed from favorites");
+      } else {
+        toast.success("Added to favorites");
+      }
+
+      const token = localStorage.getItem("token");
+
+      if (token) {
+        try {
+          const updatedUser = await currentUserFullInfo(token);
+          dispatch(setUser(updatedUser));
+        } catch (error) {
+          console.error("Failed to refresh user profile:", error);
+          toast.error("Favorites changed, but profile could not be refreshed");
+        }
+      }
+    } catch {
+      toast.error("Failed to update favorites");
     }
-  } catch {
-    toast.error("Failed to update favorites");
-  }
-};
+  };
 
   return (
     <article className={css.card}>
@@ -177,16 +175,15 @@ const handleFavoriteClick = async () => {
           </button>
 
           <button
-  type="button"
-  className={css.buttonHeart}
-  onClick={handleFavoriteClick}
-  aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
->
-  <Icon
-    name={isFavorite ? "trash" : "heart"}
-    className={css.heart}
-  />
-</button>
+            type="button"
+            className={css.buttonHeart}
+            onClick={handleFavoriteClick}
+            aria-label={
+              isFavorite ? "Remove from favorites" : "Add to favorites"
+            }
+          >
+            <Icon name={isFavorite ? "trash" : "heart"} className={css.heart} />
+          </button>
         </div>
       </div>
       {openModalAttention && (

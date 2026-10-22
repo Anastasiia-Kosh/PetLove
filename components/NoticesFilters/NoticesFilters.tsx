@@ -10,6 +10,7 @@ import {
   getNoticeSpecies,
 } from "@/lib/api/clientApi";
 import Location from "../Location/Location";
+import toast from "react-hot-toast";
 
 interface NoticesFiltersProps {
   selectedCategory: string | null;
@@ -43,24 +44,36 @@ export default function NoticesFilters({
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await getNoticeCategories();
-      setCategories(data);
+      try {
+        const data = await getNoticeCategories();
+        setCategories(data);
+      } catch {
+        toast.error("Failed to load categories.");
+      }
     };
     fetchCategories();
   }, []);
 
   useEffect(() => {
     const fetchSexes = async () => {
-      const data = await getNoticeSex();
-      setSexes(data);
+      try {
+        const data = await getNoticeSex();
+        setSexes(data);
+      } catch {
+        toast.error("Failed to load sexes.");
+      }
     };
     fetchSexes();
   }, []);
 
   useEffect(() => {
     const fetchSpecies = async () => {
-      const data = await getNoticeSpecies();
-      setSpecies(data);
+      try {
+        const data = await getNoticeSpecies();
+        setSpecies(data);
+      } catch {
+        toast.error("Failed to load species.");
+      }
     };
     fetchSpecies();
   }, []);
@@ -71,175 +84,180 @@ export default function NoticesFilters({
 
   return (
     <div className={css.mainWrapFilters}>
-        <div className={css.wrapper}>
-      <SearchBox className={css.searchBox} />
-      <div className={css.filters}>
-        <div className={css.filter}>
-          <button
-            type="button"
-            className={css.filterButton}
-            onClick={() =>
-              setOpenFilter((prev) => (prev === "category" ? null : "category"))
-            }
-          >
-            {selectedCategory
-              ? selectedCategory.charAt(0).toUpperCase() +
-                selectedCategory.slice(1)
-              : "Category"}
-            <Icon
-              name="chevron-down"
-              className={`${css.iconChevron} ${
-                openFilter === "category" ? css.iconChevronOpen : ""
-              }`}
-            />
-          </button>
+      <div className={css.wrapper}>
+        <SearchBox className={css.searchBox} />
+        <div className={css.filters}>
+          <div className={css.filter}>
+            <button
+              type="button"
+              className={css.filterButton}
+              onClick={() =>
+                setOpenFilter((prev) =>
+                  prev === "category" ? null : "category",
+                )
+              }
+            >
+              {selectedCategory
+                ? selectedCategory.charAt(0).toUpperCase() +
+                  selectedCategory.slice(1)
+                : "Category"}
+              <Icon
+                name="chevron-down"
+                className={`${css.iconChevron} ${
+                  openFilter === "category" ? css.iconChevronOpen : ""
+                }`}
+              />
+            </button>
 
-          {openFilter === "category" && (
-            <ul className={css.dropdown}>
-              <li>
-                <button
-                  type="button"
-                  className={css.option}
-                  onClick={() => {
-                    setOpenFilter(null);
-                    onCategoryChange(null);
-                  }}
-                >
-                  Show all
-                </button>
-              </li>
-              {categories.map((category) => (
-                <li key={category}>
+            {openFilter === "category" && (
+              <ul className={css.dropdown}>
+                <li>
                   <button
                     type="button"
-                    className={`${css.option} ${
-                      selectedCategory === category ? css.selected : ""
-                    }`}
+                    className={css.option}
                     onClick={() => {
                       setOpenFilter(null);
-                      onCategoryChange(category);
+                      onCategoryChange(null);
                     }}
                   >
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                    Show all
                   </button>
                 </li>
-              ))}
-            </ul>
-          )}
+                {categories.map((category) => (
+                  <li key={category}>
+                    <button
+                      type="button"
+                      className={`${css.option} ${
+                        selectedCategory === category ? css.selected : ""
+                      }`}
+                      onClick={() => {
+                        setOpenFilter(null);
+                        onCategoryChange(category);
+                      }}
+                    >
+                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className={css.filter}>
+            <button
+              type="button"
+              className={css.filterButton}
+              onClick={() =>
+                setOpenFilter((prev) => (prev === "sexes" ? null : "sexes"))
+              }
+            >
+              {selectedSex
+                ? selectedSex.charAt(0).toUpperCase() + selectedSex.slice(1)
+                : "By gender"}
+              <Icon
+                name="chevron-down"
+                className={`${css.iconChevron} ${
+                  openFilter === "sexes" ? css.iconChevronOpen : ""
+                }`}
+              />
+            </button>
+
+            {openFilter === "sexes" && (
+              <ul className={css.dropdown}>
+                <li>
+                  <button
+                    type="button"
+                    className={css.option}
+                    onClick={() => {
+                      setOpenFilter(null);
+                      onSexChange(null);
+                    }}
+                  >
+                    Show all
+                  </button>
+                </li>
+                {sexes.map((sex) => (
+                  <li key={sex}>
+                    <button
+                      type="button"
+                      className={`${css.option} ${
+                        selectedSex === sex ? css.selected : ""
+                      }`}
+                      onClick={() => {
+                        setOpenFilter(null);
+                        onSexChange(sex);
+                      }}
+                    >
+                      {sex.charAt(0).toUpperCase() + sex.slice(1)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className={css.filter}>
+            <button
+              type="button"
+              className={css.filterButton}
+              onClick={() =>
+                setOpenFilter((prev) => (prev === "species" ? null : "species"))
+              }
+            >
+              {selectedSpecies
+                ? selectedSpecies.charAt(0).toUpperCase() +
+                  selectedSpecies.slice(1)
+                : "By type"}
+              <Icon
+                name="chevron-down"
+                className={`${css.iconChevron} ${
+                  openFilter === "species" ? css.iconChevronOpen : ""
+                }`}
+              />
+            </button>
+
+            {openFilter === "species" && (
+              <ul className={css.dropdown}>
+                <li>
+                  <button
+                    type="button"
+                    className={css.option}
+                    onClick={() => {
+                      setOpenFilter(null);
+                      onSpeciesChange(null);
+                    }}
+                  >
+                    Show all
+                  </button>
+                </li>
+                {species.map((type) => (
+                  <li key={type}>
+                    <button
+                      type="button"
+                      className={`${css.option} ${
+                        selectedSpecies === type ? css.selected : ""
+                      }`}
+                      onClick={() => {
+                        setOpenFilter(null);
+                        onSpeciesChange(type);
+                      }}
+                    >
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
-
-        <div className={css.filter}>
-          <button
-            type="button"
-            className={css.filterButton}
-            onClick={() =>
-              setOpenFilter((prev) => (prev === "sexes" ? null : "sexes"))
-            }
-          >
-            {selectedSex
-              ? selectedSex.charAt(0).toUpperCase() + selectedSex.slice(1)
-              : "By gender"}
-            <Icon
-              name="chevron-down"
-              className={`${css.iconChevron} ${
-                openFilter === "sexes" ? css.iconChevronOpen : ""
-              }`}
-            />
-          </button>
-
-          {openFilter === "sexes" && (
-            <ul className={css.dropdown}>
-              <li>
-                <button
-                  type="button"
-                  className={css.option}
-                  onClick={() => {
-                    setOpenFilter(null);
-                    onSexChange(null);
-                  }}
-                >
-                  Show all
-                </button>
-              </li>
-              {sexes.map((sex) => (
-                <li key={sex}>
-                  <button
-                    type="button"
-                    className={`${css.option} ${
-                      selectedSex === sex ? css.selected : ""
-                    }`}
-                    onClick={() => {
-                      setOpenFilter(null);
-                      onSexChange(sex);
-                    }}
-                  >
-                    {sex.charAt(0).toUpperCase() + sex.slice(1)}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-
-        <div className={css.filter}>
-          <button
-            type="button"
-            className={css.filterButton}
-            onClick={() =>
-              setOpenFilter((prev) => (prev === "species" ? null : "species"))
-            }
-          >
-            {selectedSpecies
-              ? selectedSpecies.charAt(0).toUpperCase() +
-                selectedSpecies.slice(1)
-              : "By type"}
-            <Icon
-              name="chevron-down"
-              className={`${css.iconChevron} ${
-                openFilter === "species" ? css.iconChevronOpen : ""
-              }`}
-            />
-          </button>
-
-          {openFilter === "species" && (
-            <ul className={css.dropdown}>
-              <li>
-                <button
-                  type="button"
-                  className={css.option}
-                  onClick={() => {
-                    setOpenFilter(null);
-                    onSpeciesChange(null);
-                  }}
-                >
-                  Show all
-                </button>
-              </li>
-              {species.map((type) => (
-                <li key={type}>
-                  <button
-                    type="button"
-                    className={`${css.option} ${
-                      selectedSpecies === type ? css.selected : ""
-                    }`}
-                    onClick={() => {
-                      setOpenFilter(null);
-                      onSpeciesChange(type);
-                    }}
-                  >
-                    {type.charAt(0).toUpperCase() + type.slice(1)}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+        <div className={css.location}>
+          <Location
+            onLocationChange={onLocationChange}
+            selectedLocationId={selectedLocationId}
+          />
         </div>
       </div>
-      <div className={css.location}>
-        <Location onLocationChange={ onLocationChange} selectedLocationId={selectedLocationId}/>
-      </div>
-</div>
-<div className={css.divider} />
+      <div className={css.divider} />
       <div className={css.sortWrapper}>
         <div
           className={`${css.sortButton} ${sortBy === "popular" ? css.active : ""}`}

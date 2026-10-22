@@ -42,6 +42,22 @@ export const currentUserFullInfo = async (token: string) => {
   return data;
 };
 
+export interface UpdateUserRequest {
+  name: string;
+  email: string;
+  avatar: string;
+  phone: string;
+}
+
+export const updateUser = async (userData: UpdateUserRequest) => {
+  const { data } = await apiInstance.patch(
+    "/users/current/edit",
+    userData,
+  );
+
+  return data;
+};
+
 export interface ServerSession {
   message: string;
 }

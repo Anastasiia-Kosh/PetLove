@@ -9,13 +9,15 @@ interface NoticesListProps {
 }
 
 export default function NoticesList({ notices }: NoticesListProps) {
-  return (
-    <ul className={css.list}>
-      {notices.map((notice) => (
-        <li key={notice._id} className={css.item}>
-              <NoticesItem notice={notice} />
-        </li>
-      ))}
-    </ul>
-  );
+return notices.length > 0 ? (
+  <ul className={css.list}>
+    {notices.map((notice) => (
+      <li key={notice._id} className={css.item}>
+        <NoticesItem notice={notice} />
+      </li>
+    ))}
+  </ul>
+) : (
+   <p className={css.textEmpty}>No animals found for your search. Please select different filters.</p>
+);
 }

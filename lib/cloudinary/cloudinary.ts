@@ -1,4 +1,3 @@
-
 export async function uploadPetImage(file: File): Promise<string> {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
@@ -28,13 +27,13 @@ export async function uploadPetImage(file: File): Promise<string> {
   return result.secure_url;
 }
 
-
 export async function uploadAvatar(file: File): Promise<string> {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+  const uploadPreset =
+    process.env.NEXT_PUBLIC_CLOUDINARY_AVATAR_UPLOAD_PRESET;
 
   if (!cloudName || !uploadPreset) {
-    throw new Error("Cloudinary configuration is missing");
+    throw new Error("Cloudinary avatar configuration is missing");
   }
 
   const formData = new FormData();
@@ -52,7 +51,7 @@ export async function uploadAvatar(file: File): Promise<string> {
   const result = await response.json();
 
   if (!response.ok) {
-    throw new Error(result.error?.message ?? "Image upload failed");
+    throw new Error(result.error?.message ?? "Avatar upload failed");
   }
 
   return result.secure_url;

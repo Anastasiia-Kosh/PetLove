@@ -40,8 +40,8 @@
 }
 
 .avatarPreview {
-  width: 68px;
-  height: 68px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -50,6 +50,7 @@
   border-radius: 50%;
   background-color: var(--color-milk);
   margin: 0 auto;
+  position: relative;
 }
 
 .avatarPreview img {
@@ -59,8 +60,8 @@
 }
 
 .avatarIcon {
-  width: 26px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   fill: var(--color-yellow);
 }
 
@@ -169,5 +170,49 @@
 @media screen and (min-width: 768px) {
   .modalEditUser {
     padding: 50px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+  .avatarPreview {
+    width: 86px;
+    height: 86px;
+  }
+  .avatarIcon {
+    width: 50px;
+    height: 50px;
+  }
+  .uploadButton {
+    font-size: 14px;
+    gap: 8px;
+    padding: 12px;
+    max-width: 146px;
+  }
+
+  .uploadIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .fieldsWrap {
+    gap: 14px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  .field {
+    position: relative;
+  }
+  .input {
+    padding: 16px;
+    font-size: 16px;
+    height: 52px;
+  }
+  .avatarControls .input {
+    padding: 12px;
+  }
+  .button {
+    font-size: 16px;
+    padding: 16px 0;
   }
 }

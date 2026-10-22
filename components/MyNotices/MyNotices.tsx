@@ -18,7 +18,7 @@ export default function MyNotices({ notices }: MyNoticesProps) {
     <ul className={css.list}>
       {notices.map((notice) => (
         <li key={notice._id} className={css.item}>
-              <NoticesItem notice={notice} />
+              <NoticesItem notice={notice} variant="myNotices"/>
         </li>
       ))}
     </ul>

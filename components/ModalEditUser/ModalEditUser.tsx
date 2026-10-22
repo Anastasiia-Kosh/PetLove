@@ -9,6 +9,10 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { uploadAvatar } from "@/lib/cloudinary/cloudinary";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { setUser } from "@/lib/store/authStore";
+import { currentUserFullInfo, updateUser } from "@/lib/api/clientApi";
+import axios from "axios";
 
 interface ModalEditUserProps {
   onClose: () => void;
@@ -21,29 +25,48 @@ interface EditUserForm {
 }
 const EMAIL_REGEXP = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 const PHONE_REGEXP = /^\+38\d{10}$/;
-const schema = yup
-  .object({
-    name: yup.string(),
-    avatar: yup
-      .string()
-      .matches(
-        /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
-        "Enter a valid image URL",
-      ),
-    email: yup.string().matches(EMAIL_REGEXP, "Invalid email format"),
-    phone: yup.string().matches(PHONE_REGEXP, "Invalid phone format"),
-  })
-  .required();
+const AVATAR_REGEXP = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/;
+
+const schema = yup.object({
+  name: yup.string().trim().required("Name is required"),
+
+  email: yup
+    .string()
+    .required("Email is required")
+    .matches(EMAIL_REGEXP, "Invalid email format"),
+
+  avatar: yup
+    .string()
+    .required("Avatar is required")
+    .matches(AVATAR_REGEXP, "Enter a valid image URL"),
+
+  phone: yup
+    .string()
+    .required("Phone is required")
+    .matches(PHONE_REGEXP, "Phone must have the format +380XXXXXXXXX"),
+});
 
 export default function ModalEditUser({ onClose }: ModalEditUserProps) {
+  const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
+
   const {
     register,
+    handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<EditUserForm>({
     resolver: yupResolver(schema),
+    mode: "onTouched",
+    defaultValues: {
+      name: user?.name ?? "",
+      email: user?.email ?? "",
+      avatar: user?.avatar ?? "",
+      phone: user?.phone ?? "",
+    },
   });
+
   const avatarValue = watch("avatar");
   const nameValue = watch("name");
   const emailValue = watch("email");
@@ -100,6 +123,40 @@ export default function ModalEditUser({ onClose }: ModalEditUserProps) {
     }
   };
 
+    const onSubmit = async (data: EditUserForm) => {
+        const token = localStorage.getItem("token");
+
+  if (!token) {
+    toast.error("Your session has expired. Please log in again.");
+    return;
+  }
+    try {
+      await updateUser(data);
+
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        toast.error("Your session has expired. Please log in again.");
+        return;
+      }
+
+      const updatedUser = await currentUserFullInfo(token);
+
+      dispatch(setUser(updatedUser));
+      toast.success("Your information has been updated!");
+      onClose();
+    } catch (error) {
+      if (axios.isAxiosError<{ message?: string }>(error)) {
+        toast.error(
+          error.response?.data?.message ??
+            "Failed to update your information. Please try again.",
+        );
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    }
+  };
+
   return (
     <Modal onClose={onClose} className={css.modalEditUser}>
       <button
@@ -111,15 +168,15 @@ export default function ModalEditUser({ onClose }: ModalEditUserProps) {
         <Icon name="close" className={css.icon_close} />
       </button>
       <h2 className={css.title}>Edit information</h2>
-      <form className={css.form}>
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.avatarWrap}>
           <div className={css.avatarPreview}>
-            {avatarPreview ? (
+            {avatarPreview || user?.avatar ? (
               <Image
-                src={avatarPreview}
+                src={avatarPreview ?? user!.avatar}
                 alt="Your avatar"
-                width={80}
-                height={80}
+                fill
+                sizes="(min-width: 768px) 86px, 80px"
                 unoptimized
               />
             ) : (
@@ -193,7 +250,7 @@ export default function ModalEditUser({ onClose }: ModalEditUserProps) {
               type="email"
               {...register("email")}
               className={`${css.input} ${
-                errors.name
+                errors.email
                   ? css.inputError
                   : emailValue?.trim()
                     ? css.inputValid
@@ -210,11 +267,11 @@ export default function ModalEditUser({ onClose }: ModalEditUserProps) {
             </label>
             <input
               id="phone"
-              type="phone"
+              type="tel"
               {...register("phone")}
               placeholder="+380"
               className={`${css.input} ${
-                errors.name
+                errors.phone
                   ? css.inputError
                   : phoneValue?.trim()
                     ? css.inputValid
@@ -226,8 +283,12 @@ export default function ModalEditUser({ onClose }: ModalEditUserProps) {
             )}
           </div>
         </div>
-        <button type="submit" className={`${css.button} ${css.buttonSub}`}>
-          Go to profile
+        <button
+          type="submit"
+          className={`${css.button} ${css.buttonSub}`}
+          disabled={isSubmitting || isUploading}
+        >
+          {isSubmitting ? "Saving..." : "Save changes"}
         </button>
       </form>
     </Modal>

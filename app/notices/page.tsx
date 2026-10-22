@@ -115,7 +115,7 @@ export default function NoticesPage() {
         setNotices(data.results);
         setTotalPages(data.totalPages);
       } catch {
-   toast.error("Failed to load the notices. Please try again.");
+        toast.error("Failed to load the notices. Please try again.");
       }
     };
 

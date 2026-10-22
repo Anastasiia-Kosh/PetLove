@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useAppSelector } from "@/lib/store/hooks";
 import css from "./UserBlock.module.css";
+import Icon from "../Icon/Icon";
 
 export default function UserBlock() {
   const user = useAppSelector((state) => state.auth.user);
@@ -10,16 +11,18 @@ export default function UserBlock() {
   return (
     <div className={css.userBlock}>
       <div className={css.avatarWrapper}>
-        <Image
-          src={
-            user?.avatar ? user?.avatar : "/images/avatar/avatar-default.png"
-          }
-          alt="user avatar"
-          fill
-          className={css.photo}
-          loading="eager"
-          sizes="(min-width: 768px) 110px, 94px"
-        />
+        {user?.avatar ? (
+          <Image
+            src={user.avatar}
+            alt="user avatar"
+            fill
+            className={css.photo}
+            loading="eager"
+            sizes="(min-width: 768px) 110px, 94px"
+          />
+        ) : (
+          <Icon name="user" className={css.avatarIcon} />
+        )}
       </div>
 
       <div className={css.infoEditWrap}>

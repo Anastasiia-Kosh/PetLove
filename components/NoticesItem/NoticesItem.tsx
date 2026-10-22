@@ -19,9 +19,10 @@ import ModalCongrats from "../ModalCongrats/ModalCongrats";
 
 interface NoticesItemProps {
   notice: NoticeItem;
+    variant?: "default" | "myNotices";
 }
 
-export default function NoticesItem({ notice }: NoticesItemProps) {
+export default function NoticesItem({ notice , variant = "default",}: NoticesItemProps) {
   const dispatch = useAppDispatch();
 
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
@@ -113,7 +114,9 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
   };
 
   return (
-    <article className={css.card}>
+    <article className={`${css.card} ${
+        variant === "myNotices" ? css.myNoticesCard : ""
+      }`}>
       <div className={css.photoWrapper}>
         <Image
           src={notice.imgURL}
@@ -133,7 +136,9 @@ export default function NoticesItem({ notice }: NoticesItemProps) {
             {notice.popularity}
           </p>
         </div>
-        <ul className={css.features}>
+        <ul className={`${css.features} ${
+        variant === "myNotices" ? css.myNoticesFeatures : ""
+      }`}>
           <li className={css.featuresItem}>
             <p className={css.featuresTitle}>Name</p>
             <p className={css.featuresDescr}>{notice.name}</p>

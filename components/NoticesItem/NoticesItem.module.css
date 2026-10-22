@@ -139,7 +139,9 @@
 .buttonHeart:hover {
   background-color: var(--color-dark-milk);
 }
-
+.myNoticesFeatures {
+  gap: 14px;
+}
 @media screen and (min-width: 768px) {
   .title {
     font-size: 18px;
@@ -158,9 +160,18 @@
     max-width: 48px;
     height: 48px;
   }
+  .myNoticesCard {
+    padding: 14px;
+  }
+  .myNoticesFeatures {
+    gap: 16px;
+  }
 }
 @media only screen and (min-width: 1280px) {
   .features {
     gap: 20px;
+  }
+  .myNoticesFeatures {
+    gap: 16px;
   }
 }

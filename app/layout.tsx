@@ -4,6 +4,7 @@ import { Manrope } from "next/font/google";
 import Header from "@/components/Header/Header";
 import { Toaster } from "react-hot-toast";
 import Providers from "@/lib/store/Providers";
+import { LoaderProvider } from "@/lib/LoaderContext";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -21,9 +22,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${manrope.variable}`}>
       <body>
         <Providers>
-          <Header />
-          <main>{children}</main>
-          <Toaster />
+          <LoaderProvider>
+            <Header />
+            <main>{children}</main>
+            <Toaster />
+          </LoaderProvider>
         </Providers>
       </body>
     </html>

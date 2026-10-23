@@ -16,6 +16,7 @@ import { getNoticeSpecies } from "@/lib/api/clientApi";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { setUser } from "@/lib/store/authStore";
 import { currentUserFullInfo } from "@/lib/api/clientApi";
+import { useLoader } from "@/lib/LoaderContext";
 
 interface AddPetForm {
   name: string;
@@ -60,6 +61,7 @@ export default function AddPetPage() {
     mode: "onTouched",
   });
   const router = useRouter();
+  const { showLoader, hideLoader } = useLoader();
   const titleValue = watch("title");
   const nameValue = watch("name");
   const imgURLValue = watch("imgURL");
@@ -140,7 +142,9 @@ export default function AddPetPage() {
     }
   };
 
-  const onSubmit = async (data: AddPetForm) => {
+const onSubmit = async (data: AddPetForm) => {
+  showLoader();
+  try {
     try {
       await addPet(data);
     } catch (error) {
@@ -171,7 +175,10 @@ export default function AddPetPage() {
 
     toast.success("Pet added successfully!");
     router.push("/profile");
-  };
+  } finally {
+    hideLoader();
+  }
+};
 
   return (
     <section className={css.page}>

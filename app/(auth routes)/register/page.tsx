@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { setUser } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
+import { useLoader } from "@/lib/LoaderContext";
 
 interface RegisterForm {
   name: string;
@@ -52,10 +53,11 @@ export default function RegisterPage() {
   });
 
   const dispatch = useAppDispatch();
-
+const { showLoader, hideLoader } = useLoader();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: RegisterForm) => {
+     showLoader();
     try {
       const user = await registerUser({
         name: data.name,
@@ -79,7 +81,9 @@ export default function RegisterPage() {
       } else {
         toast.error("Something went wrong. Please try again.");
       }
-    }
+    } finally {
+    hideLoader();
+  }
   };
   return (
     <section className={css.page}>

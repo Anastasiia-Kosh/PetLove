@@ -9,11 +9,13 @@ import type { SortBy } from "@/types/filters";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Pagination from "@/components/Pagination/Pagination";
 import toast from "react-hot-toast";
+import { useLoader } from "@/lib/LoaderContext";
 
 export default function NoticesPage() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const { showLoader, hideLoader } = useLoader();
 
   const keyword = searchParams.get("keyword") ?? "";
   const selectedCategory = searchParams.get("category");
@@ -90,6 +92,7 @@ export default function NoticesPage() {
 
   useEffect(() => {
     const fetchNotices = async () => {
+      showLoader();
       try {
         const data = await getNotices({
           keyword: keyword || undefined,
@@ -116,6 +119,8 @@ export default function NoticesPage() {
         setTotalPages(data.totalPages);
       } catch {
         toast.error("Failed to load the notices. Please try again.");
+      } finally {
+        hideLoader();
       }
     };
 
@@ -128,6 +133,8 @@ export default function NoticesPage() {
     keyword,
     selectedLocation,
     currentPage,
+    showLoader,
+    hideLoader,
   ]);
 
   return (

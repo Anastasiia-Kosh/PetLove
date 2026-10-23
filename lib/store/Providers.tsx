@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Provider } from "react-redux";
@@ -11,5 +12,10 @@ export default function Providers({
 }: {
   children: React.ReactNode;
 }) {
-  return <Provider store={store}><AuthInitializer />{children}</Provider>;
+  return (
+    <Provider store={store}>
+      <AuthInitializer />
+      {children}
+    </Provider>
+  );
 }

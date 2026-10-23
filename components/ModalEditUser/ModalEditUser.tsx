@@ -43,7 +43,7 @@ const schema = yup.object({
   phone: yup
     .string()
     .required("Phone is required")
-    .matches(PHONE_REGEXP, "Phone must have the format +380XXXXXXXXX"),
+    .matches(PHONE_REGEXP, "Phone must have the format +38XXXXXXXXX"),
 });
 
 export default function ModalEditUser({ onClose }: ModalEditUserProps) {
@@ -269,7 +269,7 @@ export default function ModalEditUser({ onClose }: ModalEditUserProps) {
               id="phone"
               type="tel"
               {...register("phone")}
-              placeholder="+380"
+              placeholder="+38"
               className={`${css.input} ${
                 errors.phone
                   ? css.inputError

@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { setUser } from "@/lib/store/authStore";
-
+import { useLoader } from "@/lib/LoaderContext";
 
 interface LoginForm {
   email: string;
@@ -45,9 +45,11 @@ export default function LoginPage() {
   });
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { showLoader, hideLoader } = useLoader();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data: LoginForm) => {
+     showLoader();
     try {
       const user = await loginUser(data);
 
@@ -68,7 +70,9 @@ export default function LoginPage() {
       } else {
         toast.error("Something went wrong. Please try again.");
       }
-    }
+    } finally {
+    hideLoader();
+  }
   };
   return (
     <section className={css.page}>

@@ -62,7 +62,7 @@ export default function Header() {
                 <Link
                   href="/news"
                   onClick={handleCloseMobileMenu}
-                  className={css.navLink}
+                  className={`${css.navLink} ${pathname === "/news" ? css.activeLink : ""}`}
                 >
                   News
                 </Link>
@@ -72,7 +72,7 @@ export default function Header() {
                 <Link
                   href="/notices"
                   onClick={handleCloseMobileMenu}
-                  className={css.navLink}
+                  className={`${css.navLink} ${pathname === "/notices" ? css.activeLink : ""}`}
                 >
                   Find pet
                 </Link>
@@ -82,16 +82,16 @@ export default function Header() {
                 <Link
                   href="/friends"
                   onClick={handleCloseMobileMenu}
-                  className={css.navLink}
+                  className={`${css.navLink} ${pathname === "/friends" ? css.activeLink : ""}`}
                 >
                   Our friends
                 </Link>
               </li>
             </ul>
             <div className={css.descAuthNavigation}>
-            <AuthNavigation pathname={pathname} />
+              <AuthNavigation pathname={pathname} />
               <UserBar />
-              </div>
+            </div>
           </nav>
         </div>
         {isMobileMenuOpen && (
@@ -106,7 +106,7 @@ export default function Header() {
                 <Link
                   href="/news"
                   onClick={handleCloseMobileMenu}
-                  className={css.navLinkMob}
+                  className={`${css.navLinkMob} ${pathname === "/news" ? css.activeLinkMob : ""}`}
                 >
                   News
                 </Link>
@@ -116,7 +116,7 @@ export default function Header() {
                 <Link
                   href="/notices"
                   onClick={handleCloseMobileMenu}
-                  className={css.navLinkMob}
+                  className={`${css.navLinkMob} ${pathname === "/notices" ? css.activeLinkMob : ""}`}
                 >
                   Find pet
                 </Link>
@@ -126,7 +126,7 @@ export default function Header() {
                 <Link
                   href="/friends"
                   onClick={handleCloseMobileMenu}
-                  className={css.navLinkMob}
+                  className={`${css.navLinkMob} ${pathname === "/friends" ? css.activeLinkMob : ""}`}
                 >
                   Our friends
                 </Link>

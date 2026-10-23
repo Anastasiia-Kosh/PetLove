@@ -155,6 +155,9 @@
   color: var(--color-yellow);
   background-color: var(--color-milk);
 }
+.mobileNavInner .activeLinkMob {
+  border-color: var(--color-white);
+}
 .mobileUserBar {
   display: block;
   margin-left: auto;
@@ -247,7 +250,9 @@
   .headerHome .navLink {
     border-color: var(--color-milk);
   }
-
+  .activeLink {
+    border-color: var(--color-yellow);
+  }
   .headerHome .navLink:hover,
   .headerHome .navLink:focus {
     color: var(--color-yellow);

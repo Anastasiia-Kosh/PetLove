@@ -9,11 +9,14 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import MyNotices from "@/components/MyNotices/MyNotices";
 import ModalEditUser from "@/components/ModalEditUser/ModalEditUser";
+import ModalAttention from "@/components/ModalAttention/ModalAttention";
+import ModalLogout from "@/components/ModalLogout/ModalLogout";
 
 export default function ProfilePage() {
   const router = useRouter();
   const user = useAppSelector((state) => state.auth.user);
   const [openModalEditUser, setOpenModalEditUser] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"favorites" | "viewed">(
     "favorites",
   );
@@ -62,11 +65,19 @@ export default function ProfilePage() {
               <PetsList pets={user?.pets ?? []} />
             </div>
 
-            <button type="button" className={css.logoutBtn}>
+            <button
+              type="button"
+              className={css.logoutBtn}
+              onClick={() => {
+                setIsLogoutModalOpen(true);
+              }}
+            >
               LOG OUT
             </button>
           </div>
-
+          {isLogoutModalOpen && (
+            <ModalLogout onClose={() => setIsLogoutModalOpen(false)} />
+          )}
           <div className={css.noticesWrap}>
             <div className={css.buttonWrap}>
               <button

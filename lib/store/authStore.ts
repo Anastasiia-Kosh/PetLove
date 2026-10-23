@@ -5,12 +5,14 @@ interface AuthState {
   user: AuthUser | null;
   isLoggedIn: boolean;
   favoriteNoticeIds: string[];
+  isAuthChecked: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
   isLoggedIn: false,
   favoriteNoticeIds: [],
+  isAuthChecked: false,
 };
 
 const authSlice = createSlice({
@@ -31,8 +33,12 @@ const authSlice = createSlice({
     updateFavorites(state, action: PayloadAction<string[]>) {
       state.favoriteNoticeIds = action.payload;
     },
+    setAuthChecked(state) {
+      state.isAuthChecked = true;
+    },
   },
 });
 
-export const { setUser, clearUser, updateFavorites } = authSlice.actions;
+export const { setUser, clearUser, updateFavorites, setAuthChecked } =
+  authSlice.actions;
 export default authSlice.reducer;

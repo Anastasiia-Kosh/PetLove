@@ -28,6 +28,9 @@ export default function AuthNavigation({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
+  const isAuthChecked = useAppSelector(
+  (state) => state.auth.isAuthChecked
+);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const isHomePage = pathname === "/";
 
@@ -61,7 +64,7 @@ export default function AuthNavigation({
   return (
     <>
       <ul className={authNavigationClass}>
-        {user ? (
+        {isAuthChecked && (user ? (
           <li>
             <button
               type="button"
@@ -93,7 +96,7 @@ export default function AuthNavigation({
               </Link>
             </li>
           </>
-        )}
+        ))}
       </ul>
       {isLogoutModalOpen && (
         <Modal

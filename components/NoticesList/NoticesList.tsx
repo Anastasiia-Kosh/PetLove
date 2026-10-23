@@ -11,9 +11,9 @@ interface NoticesListProps {
 export default function NoticesList({ notices }: NoticesListProps) {
 return notices.length > 0 ? (
   <ul className={css.list}>
-    {notices.map((notice) => (
+    {notices.map((notice, index) => (
       <li key={notice._id} className={css.item}>
-        <NoticesItem notice={notice} />
+        <NoticesItem notice={notice} priority={index === 0}/>
       </li>
     ))}
   </ul>

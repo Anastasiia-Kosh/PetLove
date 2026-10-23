@@ -19,10 +19,15 @@ import ModalCongrats from "../ModalCongrats/ModalCongrats";
 
 interface NoticesItemProps {
   notice: NoticeItem;
-    variant?: "default" | "myNotices";
+  variant?: "default" | "myNotices";
+  priority?: boolean;
 }
 
-export default function NoticesItem({ notice , variant = "default",}: NoticesItemProps) {
+export default function NoticesItem({
+  notice,
+  variant = "default",
+  priority = false,
+}: NoticesItemProps) {
   const dispatch = useAppDispatch();
 
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
@@ -114,16 +119,19 @@ export default function NoticesItem({ notice , variant = "default",}: NoticesIte
   };
 
   return (
-    <article className={`${css.card} ${
+    <article
+      className={`${css.card} ${
         variant === "myNotices" ? css.myNoticesCard : ""
-      }`}>
+      }`}
+    >
       <div className={css.photoWrapper}>
         <Image
           src={notice.imgURL}
           alt={notice.title}
           fill
           className={css.photo}
-          loading="eager"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
           sizes="(min-width: 1280px) 315px, (min-width: 768px) 294px, 287px"
         />
       </div>
@@ -136,9 +144,11 @@ export default function NoticesItem({ notice , variant = "default",}: NoticesIte
             {notice.popularity}
           </p>
         </div>
-        <ul className={`${css.features} ${
-        variant === "myNotices" ? css.myNoticesFeatures : ""
-      }`}>
+        <ul
+          className={`${css.features} ${
+            variant === "myNotices" ? css.myNoticesFeatures : ""
+          }`}
+        >
           <li className={css.featuresItem}>
             <p className={css.featuresTitle}>Name</p>
             <p className={css.featuresDescr}>{notice.name}</p>

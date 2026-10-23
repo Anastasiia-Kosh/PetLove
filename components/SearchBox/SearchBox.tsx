@@ -7,14 +7,25 @@ import Icon from "../Icon/Icon";
 
 interface SearchBoxProps {
   className?: string;
+  keyword?: string;
+  onKeywordChange?: (keyword: string) => void;
 }
 
-export default function SearchBox({ className }: SearchBoxProps) {
+export default function SearchBox({
+  className,
+  keyword: controlledKeyword,
+  onKeywordChange,
+}: SearchBoxProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [keyword, setKeyword] = useState(searchParams.get("keyword") ?? "");
+  const [localKeyword, setLocalKeyword] = useState(
+    searchParams.get("keyword") ?? "",
+  );
+
+  const keyword = controlledKeyword ?? localKeyword;
+  const setKeyword = onKeywordChange ?? setLocalKeyword;
 
   const handleSearch = (formData: FormData) => {
     const search = formData.get("keyword")?.toString().trim() ?? "";
@@ -33,6 +44,7 @@ export default function SearchBox({ className }: SearchBoxProps) {
 
     const params = new URLSearchParams(searchParams.toString());
     params.delete("keyword");
+    params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   };
 

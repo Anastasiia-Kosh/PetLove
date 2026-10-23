@@ -89,6 +89,9 @@ export default function NoticesPage() {
     params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   };
+  const handleResetFilters = () => {
+  router.push(pathname);
+};
 
   useEffect(() => {
     const fetchNotices = async () => {
@@ -152,6 +155,7 @@ export default function NoticesPage() {
           onSortChange={handleSortChange}
           onLocationChange={handleLocationChange}
           selectedLocationId={selectedLocation}
+          onResetFilters={handleResetFilters}
         />
         <div className={css.list}>
           <NoticesList notices={notices} />

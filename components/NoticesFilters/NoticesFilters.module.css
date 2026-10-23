@@ -125,6 +125,18 @@
   background-color: rgba(38, 38, 38, 0.1);
   margin: 20px 0;
 }
+.resetBtn {
+  border-radius: 30px;
+  padding: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.03em;
+  border: 1px solid var(--color-yellow);
+}
+.resetBtn:hover {
+  background-color: var(--color-yellow);
+}
 @media screen and (min-width: 768px) {
   .mainWrapFilters {
     padding: 40px 35px;
@@ -156,11 +168,12 @@
   }
 
   .location {
-    flex: 1 1 170px;
+    flex: 1 1 250px;
     min-width: 0;
   }
   .filterButton,
-  .sortButton {
+  .sortButton,
+  .resetBtn {
     padding: 14px;
   }
 }

@@ -23,6 +23,7 @@ interface NoticesFiltersProps {
   onSortChange: (sortBy: SortBy) => void;
   onLocationChange: (locationId: string | null) => void;
   selectedLocationId: string | null;
+  onResetFilters: () => void;
 }
 
 export default function NoticesFilters({
@@ -36,11 +37,13 @@ export default function NoticesFilters({
   onSortChange,
   onLocationChange,
   selectedLocationId,
+  onResetFilters,
 }: NoticesFiltersProps) {
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
   const [sexes, setSexes] = useState<string[]>([]);
   const [species, setSpecies] = useState<string[]>([]);
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -85,7 +88,11 @@ export default function NoticesFilters({
   return (
     <div className={css.mainWrapFilters}>
       <div className={css.wrapper}>
-        <SearchBox className={css.searchBox} />
+        <SearchBox
+          className={css.searchBox}
+          keyword={keyword}
+          onKeywordChange={setKeyword}
+        />
         <div className={css.filters}>
           <div className={css.filter}>
             <button
@@ -323,6 +330,12 @@ export default function NoticesFilters({
             </button>
           )}
         </div>
+        <button type="button" className={css.resetBtn}   onClick={() => {
+    setKeyword("");
+    onResetFilters();
+  }}>
+          Reset filters
+        </button>
       </div>
     </div>
   );

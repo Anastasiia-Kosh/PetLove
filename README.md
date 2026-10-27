@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![PetLove](./assets/petLove.webp)
 
-## Getting Started
+# 🐾 PetLove
 
-First, run the development server:
+**PetLove** is a responsive web application designed to help people find pets, explore adoption listings, and discover useful information about animal care.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Users can browse available pets, filter and sort listings, save their favorite animals, view detailed information, and manage their profiles.
+
+🔗 **Live Demo:** [PetLove](https://pet-love-steel.vercel.app/)  
+💻 **Repository:** [GitHub](https://github.com/Anastasiia-Kosh/PetLove)
+
+---
+
+## ✨ Features
+
+- **User Authentication** — registration, login, logout, and session restoration.
+- **Pet Listings** — browse available animals with detailed information and photos.
+- **Search & Filtering** — find pets by keyword, category, species, sex, and location.
+- **Sorting** — sort listings by popularity and price.
+- **Pagination** — navigate through multiple pages of pet listings.
+- **Favorites** — add pets to favorites and manage saved listings.
+- **Pet Details** — view additional information about an animal.
+- **User Profile** — manage personal information and uploaded pets.
+- **Pet Management** — add pets to your profile and remove them.
+- **News** — browse and search articles related to pets.
+- **Our Friends** — explore partner organizations and useful resources.
+- **Responsive Design** — layouts adapted for mobile, tablet, and desktop screens.
+- **Loading States & Error Handling** — provide feedback during asynchronous operations and when requests fail.
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- Next.js (App Router)
+- React
+- TypeScript
+- CSS Modules
+- Redux Toolkit
+- React Redux
+
+### Forms & Validation
+
+- React Hook Form
+- Yup
+- `@hookform/resolvers`
+
+### API & Utilities
+
+- Axios
+- React Hot Toast
+- React Select
+- React Paginate
+
+### Deployment
+
+- Vercel
+
+### Backend
+
+- External REST API provided for the project
+
+## 🏗️ Architecture
+
+The application uses the Next.js App Router and separates pages, reusable UI components, API requests, and global state management.
+
+- **App Router** — page routing and URL-based search parameters.
+- **Reusable Components** — shared components for listings, filters, pagination, forms, and modals.
+- **API Layer** — centralized HTTP requests using Axios.
+- **Redux Toolkit** — global authentication and user-related state.
+- **CSS Modules** — component-scoped styling.
+- **Next.js Image** — optimized image rendering.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Anastasiia-Kosh/PetLove.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd PetLove
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Create a `.env.local` file in the project root and configure the API URL:
+
+```env
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_SITE_URL=
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=
+NEXT_PUBLIC_CLOUDINARY_AVATAR_UPLOAD_PRESET=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+See `.env.example` for the required variables.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5. Start the development server:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## 📜 Available Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command         | Description                  |
+| --------------- | ---------------------------- |
+| `npm run dev`   | Start the development server |
+| `npm run build` | Create a production build    |
+| `npm run start` | Start the production server  |
+| `npm run lint`  | Run ESLint                   |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👩‍💻 Author
 
-## Deploy on Vercel
+**Anastasiia Kosh**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[GitHub](https://github.com/Anastasiia-Kosh)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Maket
+
+[Figma](https://www.figma.com/file/puMNfZVg4YI8UZoJ1QiLLi/Petl%F0%9F%92%9Bve?type=design&node-id=55838-750&mode=design&t=Xg1IwIcKebTl5xGs-0)

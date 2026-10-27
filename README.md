@@ -7,7 +7,6 @@
 Users can browse available pets, filter and sort listings, save their favorite animals, view detailed information, and manage their profiles.
 
 🔗 **Live Demo:** [PetLove](https://pet-love-steel.vercel.app/)  
-💻 **Repository:** [GitHub](https://github.com/Anastasiia-Kosh/PetLove)
 
 ---
 
